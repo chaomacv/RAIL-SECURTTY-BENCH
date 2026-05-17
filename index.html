@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rail-Security-Bench</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- 导航栏 -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="#">
+        RAIL-SECURTTY-BENCH <span class="brand-leaf">🌿</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav align-items-center">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+              Benchmarks
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#benchmarks">Catenary Pole</a></li>
+              <li><a class="dropdown-item" href="#benchmarks">Environment</a></li>
+              <li><a class="dropdown-item" href="#benchmarks">Noise Barrier</a></li>
+              <li><a class="dropdown-item" href="#benchmarks">Power Tower</a></li>
+              <li><a class="dropdown-item" href="#benchmarks">Rail Track</a></li>
+              <li><a class="dropdown-item" href="#benchmarks">Steel Bridge</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#contact">About</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero 轮播（淡入淡出效果） -->
+  <!-- Hero 轮播区域 -->
+  <header class="hero-section">
+    <div class="container">
+
+      <div id="heroCarousel"
+          class="carousel slide carousel-fade"
+          data-bs-ride="carousel"
+          data-bs-interval="5000">
+
+        <div class="carousel-inner">
+
+          <!-- Slide 1 -->
+          <div class="carousel-item active">
+            <img src="./assets/images/Steel Bridge.png"
+                class="d-block w-100"
+                alt="铁路场景 1">
+
+            <div class="hero-caption">
+              <h5>Rail-Security-Bench</h5>
+              <p class="mb-0">
+                is the world's first benchmark for using unmanned aerial vehicle to inspect the safety of railway facilities.
+              </p>
+            </div>
+          </div>
+
+          <!-- Slide 2 -->
+          <div class="carousel-item">
+            <img src="./assets/images/Catenary Pole.png"
+                class="d-block w-100"
+                alt="铁路场景 2">
+
+            <div class="hero-caption">
+              <h5>Rail-Security-Bench</h5>
+              <p class="mb-0">
+                is the world's first benchmark for using unmanned aerial vehicle to inspect the safety of railway facilities.
+              </p>
+            </div>
+          </div>
+
+          <!-- Slide 3 -->
+          <div class="carousel-item">
+            <img src="./assets/images/Noise Barrier.png"
+                class="d-block w-100"
+                alt="铁路场景 3">
+
+            <div class="hero-caption">
+              <h5>Rail-Security-Bench</h5>
+              <p class="mb-0">
+                is the world's first benchmark for using unmanned aerial vehicle to inspect the safety of railway facilities.
+              </p>
+            </div>
+          </div>
+          <!-- Slide 4 -->
+          <div class="carousel-item">
+            <img src="./assets/images/Environment.png"
+                class="d-block w-100"
+                alt="铁路场景 4">
+
+            <div class="hero-caption">
+              <h5>Rail-Security-Bench</h5>
+              <p class="mb-0">
+                is the world's first benchmark for using unmanned aerial vehicle to inspect the safety of railway facilities.
+              </p>
+            </div>
+          </div>
+          <!-- Slide 5 -->
+          <div class="carousel-item">
+            <img src="./assets/images/Power Tower.png"
+                class="d-block w-100"
+                alt="铁路场景 5">
+
+            <div class="hero-caption">
+              <h5>Rail-Security-Bench</h5>
+              <p class="mb-0">
+                is the world's first benchmark for using unmanned aerial vehicle to inspect the safety of railway facilities.
+              </p>
+            </div>
+          </div>
+          <!-- Slide 6 -->
+          <div class="carousel-item">
+            <img src="./assets/images/Rail Track.png"
+                class="d-block w-100"
+                alt="铁路场景 6">
+
+            <div class="hero-caption">
+              <h5>Rail-Security-Bench</h5>
+              <p class="mb-0">
+                is the world's first benchmark for using unmanned aerial vehicle to inspect the safety of railway facilities.
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </header>
+
+  <!-- 关于 -->
+  <section id="about" class="py-5">
+    <div class="container">
+      <h2 class="section-title">About RAIL-SECURTTY-BENCH</h2>
+      <p class="text-secondary" style="font-size: 1.4rem; line-height: 1.8;">
+        RAIL-SECURTTY-BENCH is a domain-specific evaluation benchmark tailored for railway infrastructure security. Realistic infrastructure inspection requires robust anomaly detection across diverse structural scenes, yet existing evaluations often fail to capture the inherently unbalanced nature of actual field conditions. RAIL-SECURTTY-BENCH addresses this gap by providing a curated test dataset of 820 images spanning six critical categories—such as catenary poles, noise barriers and steel bridges—which naturally follows a long-tailed distribution to authentically reflect the real-world frequency of security-relevant anomalies.
+      </p>
+    </div>
+  </section>
+
+  <!-- 基准挑战与图片 -->
+  <section id="benchmarks" class="py-5 bg-light">
+    <div class="container">
+      <h2 class="section-title">Six Railway Infrastructure Security Scenarios</h2>
+      <ul class="benchmark-list mb-5">
+        <li class="benchmark-item">
+        <span class="benchmark-name">Catenary Pole:</span>
+        <p class="benchmark-desc">
+            This category contains 11 images and is designed to evaluate the structural safety condition of railway catenary support systems. The annotated anomalies mainly involve foreign object attachments, such as bird nests, which may threaten the stability of railway power supply systems.
+        </p>
+        </li>
+
+        <li class="benchmark-item">
+        <span class="benchmark-name">Environment:</span>
+        <p class="benchmark-desc">
+            This category contains 128 images and targets external environmental safety hazards around railway infrastructure. Annotated anomalies include plastic films, accumulated garbage, and other intrusive foreign objects that may threaten railway operation when entering critical areas.
+        </p>
+        </li>
+
+        <li class="benchmark-item">
+        <span class="benchmark-name">Noise Barrier:</span>
+        <p class="benchmark-desc">
+            This category contains 227 images and concentrates on structural degradation in railway noise barrier facilities. The annotated anomalies include corrosion of barrier panels, corrosion of supporting columns, and aging or deterioration of mortar layers, reflecting long-term infrastructure damage under real operating conditions.
+        </p>
+        </li>
+
+        <li class="benchmark-item">
+        <span class="benchmark-name">Power Tower:</span>
+        <p class="benchmark-desc">
+            This category contains 91 images and focuses on safety risks associated with railway power towers. Annotated anomalies primarily include foreign objects such as bird nests that may interfere with power transmission safety, as well as loosened antenna bolts, enabling the evaluation of anomaly perception in complex elevated infrastructure environments.
+        </p>
+        </li>
+
+        <li class="benchmark-item">
+        <span class="benchmark-name">Rail Track:</span>
+        <p class="benchmark-desc">
+            This category contains 88 images and focuses on railway track integrity assessment. Typical anomalies include missing fasteners and cracked fasteners, both of which may weaken track stability and pose potential risks to train operation safety.
+        </p>
+        </li>
+
+        <li class="benchmark-item">
+        <span class="benchmark-name">Steel Bridge:</span>
+        <p class="benchmark-desc">
+            This category contains 275 images and represents the largest scene category in the dataset. Annotated anomalies include missing bolts, corrosion of steel coatings, coating peeling, and corrosion of bridge guardrails, all of which provide visual evidence of structural degradation and long-term service damage.
+        </p>
+        </li>
+      </ul>
+
+      <div class="row row-cols-1 row-cols-md-2 g-4 mb-4">
+        <div class="col">
+          <figure class="img-card">
+            <img src="./assets/images/Catenary Pole.png" alt="铁路工作台">
+            
+          </figure>
+          <figcaption class="caption">Catenary Pole</figcaption>
+        </div>
+        <div class="col">
+          <figure class="img-card">
+            <img src="./assets/images/Environment.png" alt="铁路工作台对象">
+            
+          </figure>
+          <figcaption class="caption">Environment</figcaption>
+        </div>
+        <div class="col">
+          <figure class="img-card">
+            <img src="./assets/images/Noise Barrier.png" alt="铁路工作台植被">
+            
+          </figure>
+          <figcaption class="caption">Noise Barrier</figcaption>
+        </div>
+        <div class="col">
+          <figure class="img-card">
+            <img src="./assets/images/Power Tower.png" alt="铁路站台跟踪">
+            
+          </figure>
+          <figcaption class="caption">Power Tower</figcaption>
+        </div>
+        <div class="col">
+          <figure class="img-card">
+            <img src="./assets/images/Rail Track.png" alt="铁路工作台植被">
+          </figure>
+          <figcaption class="caption">Rail Track</figcaption>
+        </div>
+        <div class="col">
+          <figure class="img-card">
+            <img src="./assets/images/Steel Bridge.png" alt="铁路站台跟踪">
+          </figure>
+          <figcaption class="caption">Steel Bridge</figcaption>
+        </div>
+      </div>
+
+      <!-- <div class="row justify-content-center">
+        <div class="col-md-6">
+          <figure class="img-card">
+            <img src="./assets/images/Rail Track.png" alt="铁路基准里程计">
+            <figcaption class="caption">铁路基准里程计</figcaption>
+          </figure>
+        </div>
+      </div> -->
+    </div>
+  </section>
+
+  <!-- 消息 -->
+  <section id="news" class="py-4">
+    <div class="container">
+      <div class="news-box">
+        <h2 class="fw-bold mb-3" style="color: #1e3a5f;">News</h2>
+        font-size: 1.2rem;
+          <span class="fw-semibold text-dark">17.05.2026</span> &nbsp;
+          Our project paper is now available! Learn how and why we built Rail-Security-Bench, and why benchmark suites are essential for advancing railway security and safety:
+          <a href="./assets/pdf/RailMind.pdf" class="news-link">View paper</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 引用 -->
+  <section id="citation" class="py-4">
+    <div class="container">
+      <h2 class="section-title">Citation</h2>
+      <p class="text-secondary mb-3">If you use Rail-Security-Bench in your research, please cite it as follows:</p>
+      <div class="citation-box">
+        <p class="mb-0">
+          Please stay tuned.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 使用条款 -->
+  <section id="terms" class="py-4">
+    <div class="container">
+      <h2 class="section-title">Terms of Use</h2>
+      <p class="text-secondary">By using Rail-Security-Bench ,you agree to:</p>
+      <ul class="text-secondary">
+        <li>Use the datasets for research and non-commercial purposes only.</li>
+        <li>Properly cite Rail-Security-Bench in your work.</li>
+        <li>Not redistribute or commercialize the content without permission.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 接触 -->
+  <section id="contact" class="py-4">
+    <div class="container">
+      <h2 class="section-title">Contact</h2>
+      <p class="text-secondary mb-3">For questions or inquiries, please reach out to:</p>
+      <div class="contact-box">
+        <p class="fw-bold mb-1" style="color: #1e3a5f;">BJTU Mepro Laboratory</p>
+        <p class="text-secondary mb-1">Institute of Information Science, Digital Media Information Processing Research Center</p>
+        <a href="mailto:annika.baetz@kit.edu" class="contact-link">yunchao.wei@bjtu.edu.cn</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 页脚 -->
+  <footer class="site-footer">
+    <div class="container">
+      <p class="mb-0">© 2026 Rail-Security-Bench。版权所有。</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
