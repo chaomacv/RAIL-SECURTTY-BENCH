@@ -67,7 +67,7 @@
     "Raw labeled/unlabeled image management, augmented imagery and Gemini-generated supervision with explicit review and filtering.": "管理有标注与无标注的原始图像、增广图像及 Gemini 生成的监督，并进行明确的复核与筛选。",
     "Multimodal Learning": "多模态学习",
     "SFT → RL Post-Training": "SFT → RL 后训练",
-    "Supervised adaptation followed by GRPO/GSPO variants to analyze the precision–recall trade-off.": "在监督适配后采用 GRPO / GSPO 等策略，分析精确率与召回率之间的权衡。",
+    "Supervised adaptation followed by RL variants to analyze the precision–recall trade-off.": "在监督适配后采用 RL 等策略，分析精确率与召回率之间的权衡。",
     "Localization": "目标定位",
     "Open-Vocabulary Grounding": "开放词汇定位",
     "Use classification results alongside a detection model for localized visual evidence and bounding-box evaluation.": "结合分类结果与 检测模型，获得局部视觉证据并进行目标框评测。",
