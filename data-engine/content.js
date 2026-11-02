@@ -130,13 +130,13 @@ window.RAILMIND_CONTENT = {
       "zh": {
         "label": "提示词组装",
         "title": "用领域知识约束任务",
-        "description": "组合专家角色、领域知识、分析任务、结构化输出与少量示例，明确教师模型需要完成的工作。",
+        "description": "组合专家角色、领域知识、任务导向的思维链、结构化输出与少量示例，约束并规划教师模型的分析过程。",
         "purpose": "点击下方提示词要素，查看各自的作用。"
       },
       "en": {
         "label": "Prompt",
         "title": "Ground the task in domain knowledge",
-        "description": "Combine an expert role, domain knowledge, analysis tasks, an output schema and few-shot examples to define the teacher model’s task.",
+        "description": "Combine an expert role, domain knowledge, a task-specific reasoning plan, an output schema and few-shot examples to guide and structure the teacher model’s analysis.",
         "purpose": "Select a prompt component to inspect its role."
       }
     },
@@ -201,51 +201,51 @@ window.RAILMIND_CONTENT = {
     {
       "zh": {
         "label": "专家角色",
-        "text": "定义任务角色：铁路基础设施巡检分析助手，围绕图像中的可见信息提供描述。"
+        "text": "专家角色用于明确模型职责与分析视角，使输出聚焦铁路巡检需求。将模型设定为铁路基础设施巡检分析助手，围绕图像中的可见信息开展分析。"
       },
       "en": {
         "label": "Expert role",
-        "text": "Define the role: a railway infrastructure inspection assistant describing visible information in the image."
+        "text": "An expert role defines the model’s responsibilities and perspective, keeping responses focused on railway inspection. Assign the role of a railway infrastructure inspection assistant analyzing visible image evidence."
       }
     },
     {
       "zh": {
         "label": "领域知识",
-        "text": "提供场景与缺陷类别定义，说明相关构件及类别边界，帮助统一术语。"
+        "text": "领域知识用于统一术语与缺陷分类边界，减少场景理解和类别判断的偏差。提供铁路场景、相关构件及预定义缺陷类别的定义，作为分析依据。"
       },
       "en": {
         "label": "Domain knowledge",
-        "text": "Provide scene and defect definitions, component context and category boundaries to align terminology."
+        "text": "Domain knowledge aligns terminology and defect boundaries to reduce errors in scene interpretation and classification. Provide definitions of railway scenes, relevant components and predefined defect categories as the basis for analysis."
       }
     },
     {
       "zh": {
-        "label": "分析任务",
-        "text": "组织场景、对象状态、可见缺陷证据、类别对齐及风险说明，输出可核查的分析摘要。"
+        "label": "思维链构建",
+        "text": "思维链构建用于按任务规划分析路径，发挥模型的场景理解与风险分析能力，并引导其形成符合需求、可核查的结论。\n1. 全局到局部解析：描述图像场景，识别其中的物体，并分析各物体的状态。\n2. 安全推理：结合可见缺陷与场景条件，评估可能涉及的安全风险。\n3. 缺陷类别对齐：将识别到的异常与预定义的 13 类缺陷进行匹配和归类。\n4. 严重程度评估：分析潜在危险的严重程度，判断人工维护或干预需求。"
       },
       "en": {
-        "label": "Analysis tasks",
-        "text": "Organize scene context, object state, visible evidence, category alignment and risk descriptions into a verifiable summary."
+        "label": "Chain-of-thought design",
+        "text": "A task-specific reasoning plan guides the model’s scene understanding and risk analysis toward relevant, verifiable conclusions.\n1. Global-to-local parsing: describe the scene, identify objects and characterize their states.\n2. Safety reasoning: assess possible safety risks using visible defects and scene conditions.\n3. Defect category alignment: match and classify identified anomalies against the 13 predefined defect categories.\n4. Severity assessment: assess the severity of potential hazards and the need for human maintenance or intervention."
       }
     },
     {
       "zh": {
         "label": "输出格式",
-        "text": "指定结构化字段：scene、anomaly_classes、visual_evidence、risk_description 和 review_status。"
+        "text": "输出格式用于约束回答结构，便于复核、筛选和后续监督任务构建。指定 scene、anomaly_classes、visual_evidence、risk_description 和 review_status 等结构化字段。"
       },
       "en": {
         "label": "Output schema",
-        "text": "Specify structured fields: scene, anomaly_classes, visual_evidence, risk_description and review_status."
+        "text": "An output schema keeps responses structured for review, filtering and supervision tasks. Specify fields such as scene, anomaly_classes, visual_evidence, risk_description and review_status."
       }
     },
     {
       "zh": {
         "label": "Few-shot",
-        "text": "提供经过检查的输入与输出示例，统一回答格式、信息粒度和不确定性表述。"
+        "text": "Few-shot 通过典型案例统一分析逻辑、缺陷分类边界与输出规范，提高结果的准确性、一致性和可控性。提供经过复核的输入与输出示例，统一信息粒度和不确定性表达。"
       },
       "en": {
         "label": "Few-shot",
-        "text": "Provide checked examples to align answer structure, level of detail and expressions of uncertainty."
+        "text": "Few-shot examples align analysis logic, defect boundaries and output conventions to improve accuracy, consistency and control. Provide reviewed input-output examples to align the level of detail and expressions of uncertainty."
       }
     }
   ],
@@ -300,4 +300,3 @@ window.RAILMIND_CONTENT = {
     }
   ]
 };
-
