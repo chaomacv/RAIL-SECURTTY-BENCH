@@ -88,6 +88,23 @@
     C.promptParts.forEach((part,index) => { const button = document.createElement('button'); button.type = 'button'; button.className = 'prompt-piece'; button.textContent = part[lang].label; button.setAttribute('aria-pressed',String(index===promptPart)); button.addEventListener('click',()=>{promptPart=index;renderPromptParts();}); tabs.appendChild(button); });
     $('prompt-excerpt').textContent = C.promptParts[promptPart][lang].text;
   }
+  const exportPanel = $('stage-insight').innerHTML;
+  function renderExportSchema() {
+    const fields = [['scene','null','场景'],['anomaly_classes','[]','缺陷种类'],['visual_evidence','[]','可见证据'],['risk_description','null','风险说明'],['review_status','"pending"','复核状态']];
+    $('schema-preview').innerHTML = '{\n' + fields.map(([key,value,note],index)=>`${lang === 'zh' ? `  <span class="json-comment"># ${escape(note)}</span>\n` : ''}  <span class="json-key${step >= 3 ? ' json-active' : ''}">"${key}"</span>:\n    <span class="json-value${step>=4 && index===4 ? ' json-active' : ''}">${escape(value)}</span>${index<fields.length-1?',':''}`).join('\n') + '\n}';
+  }
+  function renderStageInsight() {
+    const aside = $('stage-insight');
+    aside.classList.toggle('stage-explanation', step !== 5);
+    if (step === 5) {
+      aside.innerHTML = exportPanel;
+      aside.querySelectorAll('[data-i18n]').forEach(el=>el.textContent=t(el.dataset.i18n));
+      renderExportSchema();
+      return;
+    }
+    const p = C.workflowPanels[step][lang];
+    aside.innerHTML = '<div class="panel-label"><span class="label-dot"></span>' + escape(p.kicker) + '</div><h4 class="insight-title">' + escape(p.title) + '</h4><p class="insight-intro">' + escape(p.intro) + '</p><div class="insight-cards">' + p.items.map(([title,text])=>'<section class="insight-card"><h5>'+escape(title)+'</h5><p>'+escape(text)+'</p></section>').join('') + '</div><p class="insight-note">' + escape(p.note) + '</p>';
+  }
   function renderFlow() {
     renderSteps();
     const s = C.steps[step][lang];
@@ -97,14 +114,20 @@
     placeholder($('supervision-slot'), 'supervision', 'slotSupervision', 'VISUAL INPUT');
     const root = $('step-content');
     if (step === 0) {
-      root.innerHTML = `<div class="scene-chips">${(lang === 'zh' ? ['接触网支柱','环境','声屏障','电塔','铁轨','钢架桥'] : ['Catenary Pole','Environment','Noise Barrier','Power Tower','Rail Track','Steel Bridge']).map(scene=>`<span>${escape(scene)}</span>`).join('')}</div><div class="source-types"><span>+ ${escape(t('positive'))}</span><span>− ${escape(t('negative'))}</span></div>`;
+      root.innerHTML = `<div class="scene-chips">${(lang === 'zh' ? ['接触网支柱','环境','声屏障','电塔','铁轨','钢架桥'] : ['Catenary Pole','Environment','Noise Barrier','Power Tower','Rail Track','Steel Bridge']).map(scene=>`<span>${escape(scene)}</span>`).join('')}</div><div class="source-types"><span>+ ${escape(t('positive'))}</span><span>− ${escape(t('negative'))}</span></div><p class="workflow-copy sample-balance">${escape(C.curationNote[lang])}</p>`;
     } else if (step === 1) renderPromptParts();
-    else if (step === 2) root.innerHTML = `<div class="teacher-visual"><div class="teacher-symbol">${icon('spark')}</div><div><b>${escape(t('teacherTitle'))}</b><small>${escape(t('teacherSub'))}</small></div></div><div class="teacher-models">${[['claude','Claude'],['gemini','Gemini'],['gpt','GPT'],['qwen','Qwen']].map(([id,name])=>`<div class="teacher-model"><span class="teacher-logo"><img src="assets/model-icons/${id}.svg" alt="" width="24" height="24"></span><span>${name}</span></div>`).join('')}</div><p class="flow-mini-note">${escape(t('teacherNote'))}</p>`;
-    else if (step === 3) root.innerHTML = `<div class="field-list">${['fieldScene','fieldClass','fieldEvidence','fieldRisk'].map(key=>`<span>${escape(t(key))}</span>`).join('')}</div>`;
-    else if (step === 4) root.innerHTML = `<ul class="review-list">${['reviewEvidence','reviewClass','reviewRisk','reviewNegative'].map(key=>`<li>${escape(t(key))}</li>`).join('')}</ul><p class="flow-mini-note">${escape(t('reviewRework'))}</p>`;
+    else if (step === 2) {
+      const m=C.modelAnalysis[lang];
+      root.innerHTML = '<div class="teacher-models">'+[['claude','Claude'],['gemini','Gemini'],['gpt','GPT'],['qwen','Qwen']].map(([id,name])=>'<div class="teacher-model"><span class="teacher-logo"><img src="assets/model-icons/'+id+'.svg" alt="" width="24" height="24"></span><span>'+name+'</span></div>').join('')+'</div><p class="workflow-copy">'+escape(m.intro)+'</p><div class="request-route">'+m.route.map(text=>'<span>'+escape(text)+'</span>').join('<b aria-hidden="true">→</b>')+'</div><p class="flow-mini-note">'+escape(m.note)+'</p>';
+    } else if (step === 3) {
+      const e=C.structuredExamples[lang];
+      root.innerHTML='<div class="example-fields">'+e.items.map(([label,text])=>'<section><h4>'+escape(label)+'</h4><p>'+escape(text)+'</p></section>').join('')+'</div><p class="flow-mini-note">'+escape(e.note)+'</p>';
+    } else if (step === 4) {
+      const r=C.reviewMethods[lang];
+      root.innerHTML='<div class="review-methods">'+r.items.map(([label,text])=>'<section><h4>'+escape(label)+'</h4><p>'+escape(text)+'</p></section>').join('')+'</div><h4 class="vector-heading">'+escape(r.label)+'</h4><div class="vector-fields">'+r.fields.map(text=>'<span>'+escape(text)+'</span>').join('')+'</div><p class="workflow-copy vector-route">'+escape(r.route)+'</p><p class="flow-mini-note">'+escape(r.note)+'</p>';
+    }
     else root.innerHTML = `<div class="export-path"><div>${icon('text')}<span>${escape(t('exportOne'))}</span></div><div>${icon('check')}<span>${escape(t('exportTwo'))}</span></div></div><p class="flow-mini-note">${escape(t('exportNote'))}</p>`;
-    const fields = [['scene','null','场景'],['anomaly_classes','[]','缺陷种类'],['visual_evidence','[]','可见证据'],['risk_description','null','风险说明'],['review_status','"pending"','复核状态']];
-    $('schema-preview').innerHTML = '{\n' + fields.map(([key,value,note],index)=>`${lang === 'zh' ? `  <span class="json-comment"># ${escape(note)}</span>\n` : ''}  <span class="json-key${step >= 3 ? ' json-active' : ''}">"${key}"</span>:\n    <span class="json-value${step>=4 && index===4 ? ' json-active' : ''}">${escape(value)}</span>${index<fields.length-1?',':''}`).join('\n') + '\n}';
+    renderStageInsight();
     $('flow-prev').disabled = step === 0; $('flow-next').disabled = step === C.steps.length-1;
     $('play-label').textContent = t(timer ? 'pauseFlow' : 'playFlow'); $('play-icon').textContent = timer ? 'Ⅱ' : '▶'; $('flow-play').setAttribute('aria-pressed',String(Boolean(timer)));
   }
@@ -159,4 +182,5 @@
   keyboardTabs($('task-tabs'),index=>{task=index;renderTasks();},C.tasks.length,()=>task);
   renderLanguage();
 })();
+
 

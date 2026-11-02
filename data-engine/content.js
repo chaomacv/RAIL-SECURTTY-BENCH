@@ -1,4 +1,4 @@
-/* Approved example assets; null retains the designed placeholder. */
+/* Bilingual examples and workflow explanations. */
 window.RAILMIND_CONTENT = {
   "assets": {
     "background": "assets/noise-barrier-background.webp",
@@ -144,14 +144,14 @@ window.RAILMIND_CONTENT = {
       "zh": {
         "label": "模型分析",
         "title": "通用 MLLM 读取图像",
-        "description": "将图像与任务提示词提供给教师模型，围绕可见对象、缺陷迹象和场景信息生成描述。",
-        "purpose": "图中的教师模型仅表示流程节点。"
+        "description": "面向批量文本监督生成，按场景组织知识、规划提示词，并通过统一封装调用通用 MLLM。",
+        "purpose": "统一请求组织与记录，为后续结构化处理和审查提供依据。"
       },
       "en": {
         "label": "Teacher",
         "title": "Analyze images with a general MLLM",
-        "description": "Provide the image and task prompt to a teacher model to describe visible objects, defect evidence and scene context.",
-        "purpose": "The teacher is a workflow node in this demonstration."
+        "description": "For batch textual supervision, organize scene knowledge, plan prompts and call general-purpose MLLMs through consistent request packaging.",
+        "purpose": "Consistent requests and records support downstream structuring and review."
       }
     },
     {
@@ -159,27 +159,27 @@ window.RAILMIND_CONTENT = {
         "label": "结构化监督",
         "title": "将描述组织成结构化信息",
         "description": "把场景、缺陷类别、可见证据和风险说明分开组织，便于检查一致性与构造不同监督任务。",
-        "purpose": "右侧展示字段结构，不填入虚构模型结论。"
+        "purpose": "案例示意：字段分别描述信息，并保持彼此一致。"
       },
       "en": {
         "label": "Structure",
         "title": "Organize structured supervision",
         "description": "Separate scene, defect categories, visible evidence and risk descriptions for consistency checks and multiple supervision tasks.",
-        "purpose": "The schema lists fields without inventing model results."
+        "purpose": "Illustrative example: separate fields while keeping their meanings aligned."
       }
     },
     {
       "zh": {
-        "label": "人工复核",
-        "title": "检查证据与结论是否一致",
-        "description": "检查描述是否有图像依据、类别是否正确、风险是否过度推断。需要修订的记录在更正前不进入训练导出。",
-        "purpose": "复核通过是训练导出的前置条件。"
+        "label": "审查复核",
+        "title": "用多种方式交叉检查监督",
+        "description": "结合分层抽样、人工／LLM 复核和分字段相似度匹配，检查类别、图像证据与风险说明的一致性。",
+        "purpose": "需要修订的记录经更正与再次审查后，才能进入导出。"
       },
       "en": {
         "label": "Review",
-        "title": "Review evidence and conclusions",
-        "description": "Check visual grounding, category correctness and unsupported risk claims. Records requiring correction remain excluded from training export until resolved.",
-        "purpose": "Review approval is required before training export."
+        "title": "Cross-check supervision in several ways",
+        "description": "Combine stratified sampling, human/LLM review and field-wise similarity matching to check categories, visual evidence and risk statements.",
+        "purpose": "Records requiring correction must be revised and reviewed again before export."
       }
     },
     {
@@ -298,5 +298,378 @@ window.RAILMIND_CONTENT = {
         "answer": "{grounded risk description}; {conditions and uncertainty}"
       }
     }
+  ],
+  "curationNote": {
+    "zh": "在 SFT 训练中，含缺陷样本帮助模型学习缺陷特征与正确输出；无缺陷样本帮助模型识别正常状态与非目标特征，减少误判和无效响应。二者结合有助于模型学习判别边界，提升区分能力、鲁棒性与泛化能力。",
+    "en": "In SFT, defect-containing samples teach defect features and correct responses, while defect-free samples teach normal states and non-target features, reducing false alarms and irrelevant responses. Together they help the model learn decision boundaries and improve discrimination, robustness and generalization."
+  },
+  "modelAnalysis": {
+    "zh": {
+      "intro": "批量调用 API 生产文本监督时，更需要有组织的提示词、有规划的领域知识注入和清晰的请求封装。按场景选择知识与任务模板，将图像、分析步骤及输出规范组合为一致的请求。",
+      "route": [
+        "场景知识",
+        "提示词模板",
+        "API 请求"
+      ],
+      "note": "记录请求编号、模型与知识／模板版本，便于追踪、重试和后续审查。"
+    },
+    "en": {
+      "intro": "Large-scale API generation requires organized prompts, planned domain-knowledge injection and clearly packaged requests. Select knowledge and task templates by scene, then combine images, analysis steps and output requirements into consistent requests.",
+      "route": [
+        "Scene knowledge",
+        "Prompt template",
+        "API request"
+      ],
+      "note": "Track request IDs, models and knowledge/template versions for traceability, retries and later review."
+    }
+  },
+  "structuredExamples": {
+    "zh": {
+      "note": "案例示意 · 用于说明字段组织方式",
+      "items": [
+        [
+          "场景信息",
+          "铁路声屏障；关注立柱、面板及连接部位。"
+        ],
+        [
+          "缺陷类别",
+          "立柱锈蚀；与预定义缺陷类别进行对齐。"
+        ],
+        [
+          "可见证据",
+          "多根立柱表面可见红褐色不规则斑块，部分区域伴随涂层破损。"
+        ],
+        [
+          "风险说明",
+          "持续腐蚀可能影响构件耐久性；严重程度与维护需求需结合现场检查确认。"
+        ]
+      ]
+    },
+    "en": {
+      "note": "Illustrative example · Demonstrates field organization",
+      "items": [
+        [
+          "Scene context",
+          "Railway noise barrier; inspect posts, panels and connections."
+        ],
+        [
+          "Defect category",
+          "Post corrosion, aligned with the predefined defect taxonomy."
+        ],
+        [
+          "Visible evidence",
+          "Irregular reddish-brown patches on several posts, with local coating damage."
+        ],
+        [
+          "Risk description",
+          "Continued corrosion may affect durability; severity and maintenance needs require on-site confirmation."
+        ]
+      ]
+    }
+  },
+  "reviewMethods": {
+    "zh": {
+      "items": [
+        [
+          "分层抽样",
+          "按场景、缺陷类别与异常程度抽取样本，同时覆盖含缺陷与无缺陷样本。"
+        ],
+        [
+          "人工复核／LLM 复核",
+          "人工核对图像与描述；LLM 可辅助检查类别、格式、语义矛盾与风险表述。"
+        ]
+      ],
+      "label": "分字段相似度审查",
+      "fields": [
+        "场景",
+        "缺陷类别",
+        "可见证据",
+        "风险说明"
+      ],
+      "route": "分别向量化 → 与同类样本或领域知识匹配 → 标记语义偏离与冲突 → 复核或修订",
+      "note": "相似度用于辅助筛查；结论仍需与图像证据一致。"
+    },
+    "en": {
+      "items": [
+        [
+          "Stratified sampling",
+          "Sample by scene, defect category and anomaly severity, covering both defect-containing and defect-free images."
+        ],
+        [
+          "Human / LLM review",
+          "Humans check images against descriptions. LLMs can assist with category, format, semantic consistency and risk-language checks."
+        ]
+      ],
+      "label": "Field-wise similarity review",
+      "fields": [
+        "Scene",
+        "Defect category",
+        "Visible evidence",
+        "Risk"
+      ],
+      "route": "Embed each field → Match related samples or domain knowledge → Flag semantic deviations and conflicts → Review or revise",
+      "note": "Similarity supports screening; conclusions must remain consistent with visual evidence."
+    }
+  },
+  "workflowPanels": [
+    {
+      "zh": {
+        "title": "场景整理的作用",
+        "kicker": "SCENE-AWARE CURATION",
+        "intro": "场景决定了需要关注的构件、缺陷语义与分析重点。先分组，再选择相应知识与提示词。",
+        "items": [
+          [
+            "为什么按场景整理",
+            "声屏障关注立柱与面板，接触网支柱关注支撑结构与附着物；相同外观在不同场景中的含义可能不同。"
+          ],
+          [
+            "提示词随场景调整",
+            "按场景指定观察对象、空间关系和任务目标，让模型关注与当前任务相关的信息。"
+          ],
+          [
+            "注入对应领域知识",
+            "匹配构件定义、缺陷分类边界及风险条件，避免把不同场景的判断依据混用。"
+          ],
+          [
+            "保留样本边界",
+            "关联场景、正负样本、来源与数据划分，便于采样、复核及后续训练。"
+          ]
+        ],
+        "note": "整理后的场景标签用于知识选择、提示词组装与分层审查。"
+      },
+      "en": {
+        "title": "Why organize scenes?",
+        "kicker": "SCENE-AWARE CURATION",
+        "intro": "Scenes determine relevant components, defect semantics and analysis priorities. Group images before selecting knowledge and prompts.",
+        "items": [
+          [
+            "Scene-specific meaning",
+            "Noise barriers emphasize posts and panels; catenary poles emphasize supports and attachments. Similar appearances may mean different things across scenes."
+          ],
+          [
+            "Adapt the prompt",
+            "Specify relevant objects, spatial relationships and task goals for each scene."
+          ],
+          [
+            "Select domain knowledge",
+            "Match component definitions, category boundaries and risk conditions to the scene."
+          ],
+          [
+            "Preserve sample context",
+            "Retain scene, positive/negative status, provenance and data splits for sampling, review and training."
+          ]
+        ],
+        "note": "Scene labels guide knowledge selection, prompt assembly and stratified review."
+      }
+    },
+    {
+      "zh": {
+        "title": "提示词结构",
+        "kicker": "PROMPT STRUCTURE",
+        "intro": "用五层结构明确铁路巡检模型的角色、知识、分析路径和输出规范。",
+        "items": [
+          [
+            "01 / 专家角色",
+            "铁路基础设施巡检分析助手：明确职责、分析视角和证据要求。"
+          ],
+          [
+            "02 / 领域知识",
+            "提供六类场景、13 类缺陷及当前场景相关构件的定义。"
+          ],
+          [
+            "03 / 思维链构建",
+            "全局到局部解析 → 安全推理 → 缺陷类别对齐 → 严重程度评估。"
+          ],
+          [
+            "04 / 结构化输出",
+            "按场景、类别、可见证据与风险等字段组织可核查的分析摘要。"
+          ],
+          [
+            "05 / Few-shot",
+            "提供经过复核的正常与缺陷案例，统一类别边界和输出规范。"
+          ]
+        ],
+        "note": "左侧选择不同要素，可查看其作用与具体组织方式。"
+      },
+      "en": {
+        "title": "Prompt structure",
+        "kicker": "PROMPT STRUCTURE",
+        "intro": "A five-layer prompt framework adapted to railway inspection tasks.",
+        "items": [
+          [
+            "01 / Expert role",
+            "A railway inspection assistant with clear responsibilities, perspective and evidence requirements."
+          ],
+          [
+            "02 / Domain knowledge",
+            "Define the six scenes, 13 defect categories and components relevant to the current scene."
+          ],
+          [
+            "03 / Reasoning plan",
+            "Global-to-local parsing → Safety reasoning → Category alignment → Severity assessment."
+          ],
+          [
+            "04 / Structured output",
+            "Organize a verifiable summary into scene, category, visible evidence and risk fields."
+          ],
+          [
+            "05 / Few-shot",
+            "Use reviewed normal and defect examples to align category boundaries and output conventions."
+          ]
+        ],
+        "note": "Select a prompt component to explore its purpose and construction."
+      }
+    },
+    {
+      "zh": {
+        "title": "批量生产的请求封装",
+        "kicker": "BATCH API WORKFLOW",
+        "intro": "统一输入组织，才能让大规模监督生成保持一致、可追踪并便于审查。",
+        "items": [
+          [
+            "知识选择",
+            "根据场景和任务检索相关构件、缺陷定义及风险条件，注入本次请求。"
+          ],
+          [
+            "模板组装",
+            "组合角色、知识、分析路径、输出格式与示例，明确各部分的边界。"
+          ],
+          [
+            "API 调用",
+            "封装图像与提示词；统一调度、限流和失败重试，保留请求与响应的关联。"
+          ],
+          [
+            "输出接收",
+            "检查格式、记录来源及版本，将待修订结果送入后续审查。"
+          ]
+        ],
+        "note": "这里展示方法与组织方式，不在网页中实际调用模型 API。"
+      },
+      "en": {
+        "title": "Package batch requests",
+        "kicker": "BATCH API WORKFLOW",
+        "intro": "Consistent input organization makes large-scale supervision generation traceable and easier to review.",
+        "items": [
+          [
+            "Select knowledge",
+            "Retrieve scene- and task-relevant components, defect definitions and risk conditions."
+          ],
+          [
+            "Assemble the template",
+            "Combine role, knowledge, reasoning plan, output format and examples with clear boundaries."
+          ],
+          [
+            "Call the API",
+            "Package images and prompts; coordinate scheduling, rate limits and retries while linking requests to responses."
+          ],
+          [
+            "Receive outputs",
+            "Validate format, retain provenance and versions, and route records needing correction to review."
+          ]
+        ],
+        "note": "This page explains the workflow; it does not call model APIs."
+      }
+    },
+    {
+      "zh": {
+        "title": "让字段相互对应",
+        "kicker": "ALIGNED SUPERVISION",
+        "intro": "以声屏障立柱锈蚀为例，将场景、类别、证据与风险建立清晰联系。",
+        "items": [
+          [
+            "场景 → 分析对象",
+            "声屏障场景对应立柱、面板与连接部位，确定观察范围。"
+          ],
+          [
+            "缺陷 → 可见证据",
+            "立柱锈蚀应由红褐色锈斑、涂层破损等图像线索支撑。"
+          ],
+          [
+            "证据 → 风险说明",
+            "从可见状态出发描述可能影响，区分图像事实与条件性的风险判断。"
+          ],
+          [
+            "形成统一记录",
+            "保留字段之间的关联，便于一致性检查、复核及多任务监督构造。"
+          ]
+        ],
+        "note": "示例用于解释组织方式，不代表真实模型的输出或已完成的安全评估。"
+      },
+      "en": {
+        "title": "Keep fields aligned",
+        "kicker": "ALIGNED SUPERVISION",
+        "intro": "Noise-barrier post corrosion illustrates the links among scene, category, evidence and risk.",
+        "items": [
+          [
+            "Scene → Objects",
+            "The noise-barrier scene determines the posts, panels and connections to inspect."
+          ],
+          [
+            "Defect → Evidence",
+            "A corrosion label needs support from visible rust patches, coating damage or related cues."
+          ],
+          [
+            "Evidence → Risk",
+            "Describe possible effects from visible states, separating observations from conditional risk judgments."
+          ],
+          [
+            "One linked record",
+            "Preserve field relationships for consistency checks, review and multi-task supervision."
+          ]
+        ],
+        "note": "The example illustrates organization; it is not actual model output or a completed safety assessment."
+      }
+    },
+    {
+      "zh": {
+        "title": "多方式交叉审查",
+        "kicker": "REVIEW STRATEGY",
+        "intro": "将抽样、人工／LLM 复核和向量相似度匹配结合，检查监督的证据一致性。",
+        "items": [
+          [
+            "抽样覆盖",
+            "按场景与缺陷类别分层，关注少见样本、异常分布和易混淆案例。"
+          ],
+          [
+            "人工／LLM 复核",
+            "人工核验图像依据，LLM 辅助检查结构、类别与语义一致性。"
+          ],
+          [
+            "四类字段分别向量化",
+            "分别表示场景、缺陷类别、可见证据和风险，与同类样本或知识库做相似度匹配。"
+          ],
+          [
+            "标记 → 修订 → 再审",
+            "低相似、冲突或证据不足的记录进入复核与更正，核验通过后再导出。"
+          ]
+        ],
+        "note": "相似度是筛查信号，不能单独作为缺陷或风险判断的依据。"
+      },
+      "en": {
+        "title": "Cross-check supervision",
+        "kicker": "REVIEW STRATEGY",
+        "intro": "Combine sampling, human/LLM review and vector similarity to check evidence consistency.",
+        "items": [
+          [
+            "Sample for coverage",
+            "Stratify by scene and category, emphasizing rare samples, unusual distributions and ambiguous cases."
+          ],
+          [
+            "Human / LLM review",
+            "Humans verify visual evidence; LLMs assist with structure, category and semantic consistency."
+          ],
+          [
+            "Embed four fields separately",
+            "Embed scene, category, visible evidence and risk, then match related samples or domain knowledge."
+          ],
+          [
+            "Flag → Revise → Review",
+            "Route low-similarity, conflicting or unsupported records for correction and re-review before export."
+          ]
+        ],
+        "note": "Similarity is a screening signal, not standalone evidence of a defect or risk."
+      }
+    }
   ]
 };
+
