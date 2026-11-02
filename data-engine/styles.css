@@ -8,3 +8,6 @@
 .result-display{height:auto;aspect-ratio:4/3}.result-display.compare{aspect-ratio:8/3}.media-slot.has-image{border-style:solid}.media-slot.has-image:after{display:none}.has-image .media-tag{z-index:1;max-width:calc(100% - 16px);top:8px;left:8px;padding:4px 7px;border-radius:3px;background:#ffffffeb;color:#385852;font:9px var(--font);letter-spacing:0;line-height:1.5;box-shadow:0 1px 5px #102e2920}
 @media(max-width:760px){.result-display.compare{aspect-ratio:auto;flex-direction:column}.result-display.compare>.media-slot{flex:none;aspect-ratio:4/3}}
 
+
+/* Teacher examples, schema notes, and alpha-preserving supervision imagery. */
+.json-comment{color:#9bb3a6;font-style:italic}.teacher-models{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:12px}.teacher-model{display:flex;align-items:center;gap:9px;border:1px solid #3d5f68;border-radius:5px;padding:9px;background:#183b49;color:#c7e7e3;font:12px var(--font);min-width:0}.teacher-logo{width:32px;height:32px;display:grid;place-items:center;flex-shrink:0;background:#fff;border-radius:7px;padding:4px}.teacher-logo img{width:24px;height:24px;display:block}#supervision-slot,#supervision-slot img{background:transparent}#supervision-slot:before{display:none}

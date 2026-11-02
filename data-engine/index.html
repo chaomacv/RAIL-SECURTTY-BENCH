@@ -9,9 +9,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=corrosion-1">
+  <link rel="stylesheet" href="styles.css?v=teacher-schema-1">
   <script src="content.js?v=supervision-scenes-1" defer></script>
-  <script src="app.js?v=supervision-scenes-1" defer></script>
+  <script src="app.js?v=teacher-schema-1" defer></script>
 </head>
 <body>
 <svg class="icon-library" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><defs>
@@ -90,7 +90,7 @@
       <div class="flow-body" id="flow-panel" role="tabpanel" tabindex="0">
         <div class="flow-source"><div class="panel-label">VISUAL INPUT</div><div id="supervision-slot" class="media-slot supervision-slot"></div><p data-i18n="sourceDescription">真实图像与已复核的生成图像，经整理后进入文本监督流程。</p><a class="inline-link" href="#synthesis"><span data-i18n="backToSynthesis">回看视觉生成策略</span> ↗</a></div>
         <div class="flow-detail"><div class="step-topline"><span class="step-counter" id="step-counter">STEP 01 / 06</span><span class="demo-badge" data-i18n="workflowDemo">流程演示</span></div><h3 id="step-title"></h3><p id="step-description" class="step-description"></p><div id="step-content" class="step-content"></div><div class="step-bottom"><span id="step-purpose"></span><div><button id="flow-prev" type="button" class="step-nav" data-i18n-aria="previousStep">←</button><button id="flow-next" type="button" class="step-nav" data-i18n-aria="nextStep">→</button></div></div></div>
-        <aside class="supervision-output"><div class="panel-label"><span class="label-dot"></span><span data-i18n="supervisionSchema">监督结构</span></div><div class="schema-title"><svg class="icon"><use href="#i-text"/></svg><b>supervision.json</b></div><pre id="schema-preview"></pre><p class="schema-note" data-i18n="schemaNote">字段结构示意，真实模型输出将在后续补充。</p><div class="schema-footer"><span data-i18n="exportGate">通过复核后导出</span><svg class="icon"><use href="#i-check"/></svg></div></aside>
+        <aside class="supervision-output"><div class="panel-label"><span class="label-dot"></span><span data-i18n="supervisionSchema">监督结构</span></div><div class="schema-title"><svg class="icon"><use href="#i-text"/></svg><b>supervision.json</b></div><pre id="schema-preview"></pre><p class="schema-note" data-i18n="schemaNote">字段结构示意。图像与真实模型输出将在项目仓库开放</p><div class="schema-footer"><span data-i18n="exportGate">通过复核后导出</span><svg class="icon"><use href="#i-check"/></svg></div></aside>
       </div>
       <div class="parallel-branch"><svg class="icon"><use href="#i-check"/></svg><span data-i18n="detectionBranch">并行检测分支：图像 → 人工框标注 → 已核验的检测数据</span><span class="branch-separator"></span><span data-i18n="detectionNote">文本监督与检测标注分别管理</span></div>
       <div class="task-preview"><div class="task-preview-heading"><span class="mini-label" data-i18n="taskOutput">SUPERVISION / 多任务输出</span><h3 data-i18n="taskTitle">一份视觉依据，多种监督任务。</h3><p data-i18n="taskDescription">以下为问答组织模板，内容由经过复核的样本信息填充。</p></div><div class="task-card"><div id="task-tabs" class="task-tabs" role="tablist" aria-label="Supervision tasks"></div><div id="task-panel" role="tabpanel" tabindex="0"><div class="qa-row"><span>Q</span><p id="task-question"></p></div><div class="qa-row answer"><span>A</span><p id="task-answer"></p></div></div><div class="template-note" data-i18n="templateNote">模板示意 · 花括号内为待填字段</div></div></div>
