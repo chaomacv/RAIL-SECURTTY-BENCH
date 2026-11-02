@@ -64,6 +64,7 @@
     ['scene','fidelity','compliance'].forEach(key => $(`review-${key}`).textContent = s[key]);
     $('transition-text').textContent = s.transition;
     $('next-strategy-label').textContent = s.next;
+    $('next-strategy').setAttribute('href', strategy === 2 ? '#supervision' : '#strategy-panel');
     const output = $('result-display'); output.replaceChildren(); output.classList.toggle('compare', compare);
     if (compare) { const before = document.createElement('div'); before.className = 'media-slot'; output.appendChild(before); placeholder(before, 'background', 'slotBefore', 'BEFORE'); }
     const after = document.createElement('div'); after.className = 'media-slot'; output.appendChild(after); placeholder(after, C.strategies[strategy].asset, compare ? 'slotAfter' : 'slotResult', `STRATEGY 0${strategy+1}`);
@@ -144,7 +145,7 @@
   document.querySelectorAll('[data-strategy]').forEach(el=>el.addEventListener('click',()=>selectStrategy(Number(el.dataset.strategy))));
   $('view-result').addEventListener('click',()=>{compare=false;renderStrategy();});
   $('view-compare').addEventListener('click',()=>{compare=true;renderStrategy();});
-  $('next-strategy').addEventListener('click',()=>{if(strategy<2)selectStrategy(strategy+1);else location.hash='supervision';});
+  $('next-strategy').addEventListener('click',event=>{if(strategy<2){event.preventDefault();selectStrategy(strategy+1);}});
   $('flow-play').addEventListener('click',play); $('flow-reset').addEventListener('click',()=>selectStep(0));
   $('flow-prev').addEventListener('click',()=>{if(step>0)selectStep(step-1);}); $('flow-next').addEventListener('click',()=>{if(step<C.steps.length-1)selectStep(step+1);});
   $('language').addEventListener('click',()=>{lang=lang==='zh'?'en':'zh';try{localStorage.setItem('railmind-language',lang);}catch(_){}renderLanguage();});

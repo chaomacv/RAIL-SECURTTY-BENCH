@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css?v=corrosion-1">
   <script src="content.js?v=corrosion-1" defer></script>
-  <script src="app.js?v=corrosion-1" defer></script>
+  <script src="app.js?v=supervision-link-1" defer></script>
 </head>
 <body>
 <svg class="icon-library" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><defs>
@@ -79,7 +79,7 @@
       </div>
       <div class="review-heading"><h3 data-i18n="reviewTitle">生成之后，还需要核验什么？</h3><span data-i18n="reviewNote">核验维度 · 具体结论以实际样例为准</span></div>
       <div class="review-grid"><details open><summary><span class="review-num">A</span><span data-i18n="sceneFit">场景适配</span><span class="review-status" data-i18n="pendingReview">待核验</span></summary><p id="review-scene"></p></details><details open><summary><span class="review-num">B</span><span data-i18n="fidelity">真实可靠</span><span class="review-status" data-i18n="pendingReview">待核验</span></summary><p id="review-fidelity"></p></details><details open><summary><span class="review-num">C</span><span data-i18n="compliance">约束满足</span><span class="review-status" data-i18n="pendingReview">待核验</span></summary><p id="review-compliance"></p></details></div>
-      <div class="strategy-transition"><div><span class="mini-label warm-text" data-i18n="nextQuestion">下一步的问题</span><p id="transition-text"></p></div><button class="text-link" id="next-strategy" type="button"><span id="next-strategy-label"></span><svg class="icon"><use href="#i-arrow"/></svg></button></div>
+      <div class="strategy-transition"><div><span class="mini-label warm-text" data-i18n="nextQuestion">下一步的问题</span><p id="transition-text"></p></div><a class="text-link" id="next-strategy" href="#supervision"><span id="next-strategy-label"></span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
     </div>
   </section>
 
