@@ -143,7 +143,20 @@
     "Rail track benchmark": "轨道基准样例",
     "Steel bridge benchmark": "钢桥基准样例",
     "railway inspection scene": "铁路巡检场景",
-    "View": "查看"
+    "View": "查看",
+    "DEFECT OBSERVATION": "缺陷观察",
+    "Coating deterioration": "涂层劣化",
+    "Bird nest": "鸟巢",
+    "Corrosion / deterioration": "腐蚀 / 劣化",
+    "Foreign object": "侵入异物",
+    "Fastener defect": "扣件缺陷",
+    "Missing bolts, coating damage and guardrail corrosion may compromise connections and durability. Advanced deterioration can threaten structural or maintenance-access safety.": "螺栓缺失、涂层损伤和护栏腐蚀可能削弱连接可靠性与结构耐久性；严重劣化时可能危及结构或检修通行安全。",
+    "Bird nests and other attachments may compromise overhead electrical clearances. Severe intrusion can contribute to flashover and traction-power interruption.": "鸟巢等附着异物可能侵占电气安全间隙，影响接触网供电安全；严重侵入时可能引发闪络或牵引供电中断。",
+    "Panel and column corrosion, together with deteriorated mortar, may weaken barrier integrity. Advanced damage can cause loose or falling components near the railway.": "面板与立柱腐蚀、砂浆劣化可能削弱结构完整性；损伤进一步发展时可能导致邻近线路的部件松动或坠落。",
+    "Plastic film, waste and intrusive objects may enter the track area or contact electrical equipment. Severe intrusion can disrupt train operation or power supply.": "塑料薄膜、堆积垃圾等异物可能侵入轨道区域或接触电气设备；严重侵入时可能影响列车运行或电力供应。",
+    "Bird nests, foreign objects and loose antenna bolts may impair electrical clearances or attachment stability. Severe cases can involve electrical faults or falling components.": "鸟巢、异物及天线螺栓松动可能影响电气间隙或附属部件稳定性；严重时可能引发电气故障或部件坠落。",
+    "Missing or cracked fasteners may weaken rail restraint and track stability. Widespread or progressive damage can pose a serious risk to safe train running.": "扣件缺失或开裂可能削弱钢轨约束和轨道稳定性；大范围或持续发展的损伤可能严重威胁列车运行安全。",
+    "Existing benchmark annotations; consequences depend on defect extent and operating conditions.": "已有基准标注示例；风险随缺陷程度与运行条件变化。"
   };
   let language = 'zh';
   try { language = localStorage.getItem(STORAGE_KEY) === 'en' ? 'en' : 'zh'; } catch (_) {}
@@ -161,7 +174,7 @@
   const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
   let node;
   while ((node = walker.nextNode())) {
-    if (!normalize(node.nodeValue) || node.parentElement.closest('script,style,#hero-title,#copy-link,#language-toggle')) continue;
+    if (!normalize(node.nodeValue) || node.parentElement.closest('script,style,#hero-title,#hero-defect,#hero-risk,#copy-link,#language-toggle')) continue;
     originals.push([node, node.nodeValue]);
   }
   const attributes = [];
