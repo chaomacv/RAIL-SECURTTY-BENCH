@@ -13,7 +13,7 @@ The controlled synthesis example uses **noise-barrier post corrosion**. The owne
 | `refined` | `assets/noise-barrier-refined.webp` | Detailed-prompt generation result |
 | `guided` | `assets/noise-barrier-guided.webp` | Reference-guided generation result |
 | `reference` | `assets/noise-barrier-reference.webp` | Real corroded-post target reference |
-| `supervision` | Not provided (`null`) | Reviewed textual-supervision example |
+| `supervision` | `assets/supervision-scenes.webp` | Owner-supplied scene montage for textual-supervision input |
 
 The bilingual prompts are illustrative descriptions of the three strategies, not a claim that these exact prompts produced the supplied images. Review criteria remain questions awaiting assessment. Missing assets fall back to the designed placeholder. Relative image paths resolve from `data-engine/`.
 

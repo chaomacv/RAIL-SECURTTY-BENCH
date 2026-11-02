@@ -6,7 +6,7 @@ window.RAILMIND_CONTENT = {
     "direct": "assets/noise-barrier-direct.webp",
     "refined": "assets/noise-barrier-refined.webp",
     "guided": "assets/noise-barrier-guided.webp",
-    "supervision": null
+    "supervision": "assets/supervision-scenes.webp"
   },
   "strategies": [
     {
