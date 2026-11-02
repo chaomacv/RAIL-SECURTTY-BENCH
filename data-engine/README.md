@@ -2,20 +2,20 @@
 
 Independent static page at `data-engine/index.html`. No build, package installation, API key or backend is required. Chinese and English content are included; the language selection is stored only in the visitor's browser.
 
-## Images to provide
+## Example images
 
-Keep the image paths in `content.js` as `null` until images are available. Missing files automatically fall back to the designed placeholder. Relative paths are resolved from `data-engine/`.
+The controlled synthesis example uses **noise-barrier post corrosion**. The owner supplied an original background, three generated results and a real target-reference image. The browser assets are WebP copies; source files remain unchanged. Images use `object-fit: contain` to retain the complete field of view.
 
-| Asset key | Suggested file | Purpose |
+| Asset key | File | Purpose |
 | --- | --- | --- |
-| `background` | `assets/background.webp` | Shared original background for the three strategies |
-| `reference` | `assets/target-reference.webp` | Reference image or object for strategy 3 |
-| `direct` | `assets/result-direct.webp` | Actual result of the simple prompt |
-| `refined` | `assets/result-refined.webp` | Actual result of the detailed prompt |
-| `guided` | `assets/result-reference.webp` | Actual result with the target reference |
-| `supervision` | `assets/supervision-image.webp` | Reviewed image for the textual supervision example |
+| `background` | `assets/noise-barrier-background.webp` | Shared original background |
+| `direct` | `assets/noise-barrier-direct.webp` | Direct-prompt generation result |
+| `refined` | `assets/noise-barrier-refined.webp` | Detailed-prompt generation result |
+| `guided` | `assets/noise-barrier-guided.webp` | Reference-guided generation result |
+| `reference` | `assets/noise-barrier-reference.webp` | Real corroded-post target reference |
+| `supervision` | Not provided (`null`) | Reviewed textual-supervision example |
 
-Example: change `background: null` to `background: 'assets/background.webp'`. Images use `object-fit: contain` to preserve the full field of view. Use the same background and target for the three strategies where possible. Keep provenance and review records alongside the research data, rather than inferring results from the prompt.
+The bilingual prompts are illustrative descriptions of the three strategies, not a claim that these exact prompts produced the supplied images. Review criteria remain questions awaiting assessment. Missing assets fall back to the designed placeholder. Relative image paths resolve from `data-engine/`.
 
 ## Content and demonstrations
 
@@ -32,3 +32,4 @@ Serve the repository root with a static HTTP server, for example `python -m http
 ## Publication
 
 Place this folder beside the existing root `index.html`. Publish the repository root through the existing GitHub Pages configuration. The intended public URL is `https://chaomacv.github.io/RAIL-SECURTTY-BENCH/data-engine/`. No change to benchmark images or evaluation data is required.
+
