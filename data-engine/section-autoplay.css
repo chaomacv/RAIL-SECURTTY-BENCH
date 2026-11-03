@@ -1,0 +1,6 @@
+.synthesis-controls{display:flex;align-items:center;justify-content:flex-end;gap:16px;flex-shrink:0}
+.synthesis-play{background:#f8f1e7;border:1px solid #d8bea0;color:#815a34;padding:10px 14px;font-size:11px;min-height:42px;white-space:nowrap;gap:9px}
+.synthesis-play:hover{background:#f2e5d1;border-color:#c09a6c}
+.synthesis-play:focus-visible{outline:2px solid #b38a56;outline-offset:3px}
+@media(max-width:760px){#synthesis>.container>.section-heading{flex-direction:column;gap:18px}.synthesis-controls{align-self:flex-end}.synthesis-play{min-height:38px;padding:8px 12px}}
+

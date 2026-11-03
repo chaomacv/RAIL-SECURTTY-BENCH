@@ -13,8 +13,10 @@
   <link rel="stylesheet" href="background-theme.css?v=ambient-4">
   <link rel="stylesheet" href="background-motion.css?v=motion-1">
   <link rel="stylesheet" href="hero-demo.css?v=demo-1">
+  <link rel="stylesheet" href="section-autoplay.css?v=auto-1">
   <script src="content.js?v=input-cards-1" defer></script>
-  <script src="app.js?v=input-cards-1" defer></script>
+  <script src="section-autoplay.js?v=auto-1" defer></script>
+  <script src="app.js?v=section-auto-1" defer></script>
   <script src="background-motion.js?v=motion-1" defer></script>
   <script src="hero-demo.js?v=demo-1" defer></script>
 </head>
@@ -62,7 +64,7 @@
 
   <section class="section synthesis" id="synthesis" aria-labelledby="synthesis-title">
     <div class="container">
-      <div class="section-heading"><div><div class="eyebrow warm-text">01 / CONTROLLED VISUAL SYNTHESIS</div><h2 id="synthesis-title" data-i18n="visualTitle">从提出需求，到控制细节。</h2><p class="section-description" data-i18n="visualDescription">以声屏障立柱锈蚀为例，逐步增加文本与视觉条件，观察锈蚀外观、场景融合及约束满足情况。</p></div><span class="section-side-note" data-i18n="visualSide">同一场景 · 逐层增加控制条件</span></div>
+      <div class="section-heading"><div><div class="eyebrow warm-text">01 / CONTROLLED VISUAL SYNTHESIS</div><h2 id="synthesis-title" data-i18n="visualTitle">从提出需求，到控制细节。</h2><p class="section-description" data-i18n="visualDescription">以声屏障立柱锈蚀为例，逐步增加文本与视觉条件，观察锈蚀外观、场景融合及约束满足情况。</p></div><div class="synthesis-controls"><span class="section-side-note" data-i18n="visualSide">同一场景 · 逐层增加控制条件</span><button type="button" class="button synthesis-play" id="strategy-play" aria-pressed="true"><span id="strategy-play-icon" aria-hidden="true">Ⅱ</span><span id="strategy-play-label">暂停切换</span></button></div></div>
       <div class="strategy-tabs" role="tablist" aria-label="Generation strategies">
         <button id="strategy-tab-0" class="strategy-tab" type="button" role="tab" aria-selected="true" aria-controls="strategy-panel" data-strategy="0"><span class="tab-num">01</span><span><b data-i18n="simpleTitle">直接文本指导</b><small data-i18n="simpleSub">背景图 + 简单需求</small></span><span class="tab-arrow">↗</span></button>
         <button id="strategy-tab-1" class="strategy-tab" type="button" role="tab" aria-selected="false" aria-controls="strategy-panel" tabindex="-1" data-strategy="1"><span class="tab-num">02</span><span><b data-i18n="refinedTitle">精细化文本指导</b><small data-i18n="refinedSub">背景图 + 多维约束</small></span><span class="tab-arrow">↗</span></button>

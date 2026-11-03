@@ -4,6 +4,7 @@
   const $ = id => document.getElementById(id);
   const dictionary = {
     zh: {
+      playStrategies:'自动切换',pauseStrategies:'暂停切换',
       originalScene:'原始场景',appearanceReference:'外观参考',sharedBackground:'三种策略共用同一背景',referenceDetail:'约束锈斑形态与纹理',viewOriginal:'查看原图',openBackground:'打开声屏障原始背景图',openReference:'打开立柱锈蚀参考图',
       skip:'跳至内容',menu:'打开导航菜单',navVisual:'视觉生成',navText:'文本监督',backHome:'项目主页 ↗',
       heroTitle:'从视觉生成，<br>到<span>可信监督。</span>',heroDescription:'探索铁路巡检数据的构建过程：用更可控的生成策略补充视觉样本，用通用多模态大模型组织文本监督。',startExplore:'探索数据构建',watchFlow:'查看监督流程',heroNote:'声屏障立柱锈蚀 · 三种视觉生成策略',
@@ -16,6 +17,7 @@
       positive:'含缺陷样本',negative:'无缺陷样本',teacherTitle:'通用 MLLM',teacherSub:'教师模型 · 通用模型示例',teacherNote:'本页回放方法流程；真实图像描述由后续样例提供。',fieldScene:'场景信息',fieldClass:'缺陷类别',fieldEvidence:'可见证据',fieldRisk:'风险说明',reviewEvidence:'描述与图像证据一致',reviewClass:'类别与缺陷定义一致',reviewRisk:'风险表述有依据且保留不确定性',reviewNegative:'正常与含缺陷样本均进行核验',reviewRework:'需要修订 → 更正描述与类别 → 再次复核',exportOne:'已复核记录 → 多任务文本监督',exportTwo:'图像与人工框标注 → 检测数据',exportNote:'训练与评测划分分别维护，保留数据来源。'
     },
     en: {
+      playStrategies:'Auto rotate',pauseStrategies:'Pause rotation',
       originalScene:'Original scene',appearanceReference:'Appearance guide',sharedBackground:'One shared background for all strategies',referenceDetail:'Guides rust shape and texture',viewOriginal:'View image',openBackground:'Open the original noise-barrier background',openReference:'Open the post-corrosion reference',
       skip:'Skip to content',menu:'Open navigation',navVisual:'Visual Synthesis',navText:'Text Supervision',backHome:'Project Home ↗',
       heroTitle:'From visual synthesis<br>to <span>grounded supervision.</span>',heroDescription:'Explore how railway inspection data is built: control visual generation, review the results, and organize textual supervision with general-purpose multimodal models.',startExplore:'Explore the engine',watchFlow:'See the workflow',heroNote:'Noise-barrier post corrosion · Three synthesis strategies',
@@ -28,7 +30,7 @@
       positive:'With defects',negative:'Without defects',teacherTitle:'General-purpose MLLM',teacherSub:'Teacher models · examples',teacherNote:'This page demonstrates the method. Real image descriptions will accompany future examples.',fieldScene:'Scene context',fieldClass:'Defect categories',fieldEvidence:'Visible evidence',fieldRisk:'Risk description',reviewEvidence:'Descriptions match visual evidence',reviewClass:'Categories match defect definitions',reviewRisk:'Risk claims are grounded and uncertainty is retained',reviewNegative:'Both normal and defect-containing images are checked',reviewRework:'Needs correction → revise descriptions and classes → review again',exportOne:'Approved records → task-specific text supervision',exportTwo:'Images + human box annotations → detection data',exportNote:'Maintain train/test splits and preserve provenance.'
     }
   };
-  let lang = 'zh', strategy = 0, step = 0, task = 0, promptPart = 0, compare = false, timer = null, toastTimer;
+  let lang = 'zh', strategy = 0, step = 0, task = 0, promptPart = 0, compare = false, toastTimer;
   try { lang = localStorage.getItem('railmind-language') === 'en' ? 'en' : 'zh'; } catch (_) {}
   const t = key => dictionary[lang][key] || key;
   const icon = name => `<svg class="icon" aria-hidden="true"><use href="#i-${name}"/></svg>`;
@@ -109,7 +111,7 @@
     const root = $('step-content');
     root.innerHTML = `<div class="prompt-assembly"></div><div class="prompt-excerpt" id="prompt-excerpt"></div><div class="prompt-snippet"><span>${lang==='zh'?'提示词片段 / 示例':'Prompt excerpt / example'}</span><p id="prompt-snippet-text"></p></div>`;
     const tabs = root.querySelector('.prompt-assembly');
-    C.promptParts.forEach((part,index) => { const button = document.createElement('button'); button.type = 'button'; button.className = 'prompt-piece'; button.textContent = part[lang].label; button.setAttribute('aria-pressed',String(index===promptPart)); button.addEventListener('click',()=>{promptPart=index;renderPromptParts();}); tabs.appendChild(button); });
+    C.promptParts.forEach((part,index) => { const button = document.createElement('button'); button.type = 'button'; button.className = 'prompt-piece'; button.textContent = part[lang].label; button.setAttribute('aria-pressed',String(index===promptPart)); button.addEventListener('click',()=>{flowPlayer.pause();promptPart=index;renderPromptParts();}); tabs.appendChild(button); });
     $('prompt-excerpt').textContent = C.promptParts[promptPart][lang].text;
     $('prompt-snippet-text').textContent = C.promptParts[promptPart][lang].example;
   }
@@ -159,15 +161,24 @@
     }
     renderStageInsight();
     $('flow-prev').disabled = step === 0; $('flow-next').disabled = step === C.steps.length-1;
-    $('play-label').textContent = t(timer ? 'pauseFlow' : 'playFlow'); $('play-icon').textContent = timer ? 'Ⅱ' : '▶'; $('flow-play').setAttribute('aria-pressed',String(Boolean(timer)));
+    syncFlowControls();
   }
-  function pause() { if(timer) clearInterval(timer); timer = null; $('play-label').textContent = t('playFlow'); $('play-icon').textContent = '▶'; $('flow-play').setAttribute('aria-pressed','false'); }
-  function selectStep(index, automatic = false) { if(!automatic) pause(); step = index; renderFlow(); animate($('step-content')); }
+  function syncFlowControls() {
+    $('play-label').textContent=t(flowPlayer.running?'pauseFlow':'playFlow');
+    $('play-icon').textContent=flowPlayer.running?'Ⅱ':'▶';
+    $('flow-play').setAttribute('aria-pressed',String(flowPlayer.running));
+  }
+  function syncStrategyControls() {
+    $('strategy-play-label').textContent=t(strategyPlayer.running?'pauseStrategies':'playStrategies');
+    $('strategy-play-icon').textContent=strategyPlayer.running?'Ⅱ':'▶';
+    $('strategy-play').setAttribute('aria-pressed',String(strategyPlayer.running));
+  }
+  function pause() {flowPlayer.pause();}
+  function selectStep(index, automatic = false) {if(!automatic)pause();step=index;renderFlow();animate($('step-content'));}
   function play() {
-    if(timer) { pause(); return; }
-    if(step === C.steps.length-1) step = 0;
-    timer = setInterval(()=>{ if(step < C.steps.length-1) selectStep(step+1,true); if(step === C.steps.length-1) pause(); }, 3200);
-    renderFlow();
+    if(flowPlayer.running){pause();return;}
+    if(step===C.steps.length-1)step=0;
+    flowPlayer.play();renderFlow();
   }
   function renderTasks() {
     const root = $('task-tabs'); root.replaceChildren();
@@ -180,7 +191,7 @@
     document.querySelectorAll('[data-i18n-html]').forEach(el=>el.innerHTML=t(el.dataset.i18nHtml));
     document.querySelectorAll('[data-i18n-aria]').forEach(el=>el.setAttribute('aria-label',t(el.dataset.i18nAria)));
     $('language').textContent = lang === 'zh' ? 'EN' : '中文'; $('language').setAttribute('aria-label', lang === 'zh' ? 'Switch to English' : '切换到中文');
-    renderStrategy(); renderFlow(); renderTasks();
+    renderStrategy(); renderFlow(); renderTasks(); syncStrategyControls();
   }
   function keyboardTabs(root, select, count, current) {
     root.addEventListener('keydown',event=>{
@@ -194,24 +205,27 @@
       event.preventDefault();select(next);root.querySelector('[aria-selected="true"]').focus();
     });
   }
-  function selectStrategy(index) {strategy=index;renderStrategy();animate($('result-display'));}
+  function selectStrategy(index, automatic = false) {if(!automatic)strategyPlayer.pause();strategy=index;renderStrategy();animate($('result-display'));}
   document.querySelectorAll('[data-strategy]').forEach(el=>el.addEventListener('click',()=>selectStrategy(Number(el.dataset.strategy))));
-  $('view-result').addEventListener('click',()=>{compare=false;renderStrategy();});
-  $('view-compare').addEventListener('click',()=>{compare=true;renderStrategy();});
+  $('view-result').addEventListener('click',()=>{strategyPlayer.pause();compare=false;renderStrategy();});
+  $('view-compare').addEventListener('click',()=>{strategyPlayer.pause();compare=true;renderStrategy();});
   $('next-strategy').addEventListener('click',event=>{if(strategy<2){event.preventDefault();selectStrategy(strategy+1);}});
-  $('flow-play').addEventListener('click',play); $('flow-reset').addEventListener('click',()=>selectStep(0));
+  $('flow-play').addEventListener('click',play); $('flow-reset').addEventListener('click',()=>{selectStep(0,true);flowPlayer.play();});
   $('flow-prev').addEventListener('click',()=>{if(step>0)selectStep(step-1);}); $('flow-next').addEventListener('click',()=>{if(step<C.steps.length-1)selectStep(step+1);});
   $('language').addEventListener('click',()=>{lang=lang==='zh'?'en':'zh';try{localStorage.setItem('railmind-language',lang);}catch(_){}renderLanguage();});
   $('menu-toggle').addEventListener('click',()=>{const open=$('navigation').classList.toggle('open');$('menu-toggle').setAttribute('aria-expanded',String(open));});
   document.querySelectorAll('#navigation a').forEach(el=>el.addEventListener('click',()=>{$('navigation').classList.remove('open');$('menu-toggle').setAttribute('aria-expanded','false');}));
   document.addEventListener('keydown',event=>{if(event.key==='Escape'){$('navigation').classList.remove('open');$('menu-toggle').setAttribute('aria-expanded','false');}});
-  document.addEventListener('visibilitychange',()=>{if(document.hidden)pause();});
-  $('copy-prompt').addEventListener('click',async()=>{let message;try{await navigator.clipboard.writeText(C.strategies[strategy][lang].prompt);message=t('copied');}catch(_){message=t('copyFailed');}clearTimeout(toastTimer);$('toast').textContent=message;$('toast').classList.add('visible');toastTimer=setTimeout(()=>$('toast').classList.remove('visible'),2800);});
+  $('copy-prompt').addEventListener('click',async()=>{strategyPlayer.pause();let message;try{await navigator.clipboard.writeText(C.strategies[strategy][lang].prompt);message=t('copied');}catch(_){message=t('copyFailed');}clearTimeout(toastTimer);$('toast').textContent=message;$('toast').classList.add('visible');toastTimer=setTimeout(()=>$('toast').classList.remove('visible'),2800);});
   keyboardTabs(document.querySelector('.strategy-tabs'),selectStrategy,C.strategies.length,()=>strategy);
   keyboardTabs($('pipeline-steps'),selectStep,C.steps.length,()=>step);
   keyboardTabs($('task-tabs'),index=>{task=index;renderTasks();},C.tasks.length,()=>task);
-  renderLanguage();
+  const strategyPlayer=window.RAILMIND_SECTION_PLAYER({root:$('strategy-panel'),interval:8000,onTick:()=>selectStrategy((strategy+1)%C.strategies.length,true),onChange:syncStrategyControls});
+  const flowPlayer=window.RAILMIND_SECTION_PLAYER({root:$('flow-panel'),interval:6000,onTick:()=>selectStep((step+1)%C.steps.length,true),onChange:syncFlowControls});
+  $('strategy-play').addEventListener('click',()=>{if(strategyPlayer.running)strategyPlayer.pause();else strategyPlayer.play();});
+  renderLanguage();strategyPlayer.refresh();flowPlayer.refresh();
 })();
+
 
 
 
