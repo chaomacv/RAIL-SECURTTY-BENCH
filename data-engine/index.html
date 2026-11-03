@@ -9,9 +9,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=prompt-layout-2">
-  <script src="content.js?v=prompt-layout-2" defer></script>
-  <script src="app.js?v=prompt-layout-2" defer></script>
+  <link rel="stylesheet" href="styles.css?v=input-cards-2">
+  <script src="content.js?v=input-cards-1" defer></script>
+  <script src="app.js?v=input-cards-1" defer></script>
 </head>
 <body>
 <svg class="icon-library" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><defs>
@@ -65,7 +65,7 @@
       <div id="strategy-panel" role="tabpanel" aria-labelledby="strategy-tab-0" class="strategy-panel" tabindex="0">
         <div class="strategy-inputs">
           <div class="panel-label"><span class="label-dot warm-bg"></span> INPUT / <span data-i18n="inputConditions">输入条件</span></div>
-          <div class="input-images"><div id="background-slot" class="media-slot small-slot"></div><div id="reference-slot" class="media-slot small-slot" hidden></div></div>
+          <div class="input-images" id="synthesis-inputs"><figure class="input-image-card" id="background-card"><div class="input-card-heading"><span data-i18n="background">背景图</span><span class="input-role" data-i18n="originalScene">原始场景</span></div><a class="input-image-open" id="background-open" href="#synthesis" target="_blank" rel="noopener" data-i18n-aria="openBackground"><div id="background-slot" class="media-slot input-image-stage"></div></a><figcaption><span data-i18n="sharedBackground">三种策略共用同一背景</span><a id="background-view" href="#synthesis" target="_blank" rel="noopener"><span data-i18n="viewOriginal">查看原图</span> ↗</a></figcaption></figure><figure class="input-image-card" id="reference-card" hidden><div class="input-card-heading"><span data-i18n="reference">目标参考</span><span class="input-role" data-i18n="appearanceReference">外观参考</span></div><a class="input-image-open" id="reference-open" href="#synthesis" target="_blank" rel="noopener" data-i18n-aria="openReference"><div id="reference-slot" class="media-slot input-image-stage"></div></a><figcaption><span data-i18n="referenceDetail">约束锈斑形态与纹理</span><a id="reference-view" href="#synthesis" target="_blank" rel="noopener"><span data-i18n="viewOriginal">查看原图</span> ↗</a></figcaption></figure></div>
           <div class="prompt-heading"><span><svg class="icon"><use href="#i-text"/></svg><b data-i18n="generationPrompt">生成提示词</b></span><button id="copy-prompt" type="button" class="quiet-button" data-i18n="copy">复制</button></div>
           <div class="prompt-box"><span class="code-eyebrow" data-i18n="promptExample">PROMPT / 示例</span><p id="generation-prompt"></p></div>
           <div id="constraint-tags" class="constraint-tags"></div>
@@ -103,6 +103,7 @@
 <div id="toast" class="toast" role="status"></div>
 </body>
 </html>
+
 
 
 

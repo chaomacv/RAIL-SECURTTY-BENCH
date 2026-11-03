@@ -4,6 +4,7 @@
   const $ = id => document.getElementById(id);
   const dictionary = {
     zh: {
+      originalScene:'原始场景',appearanceReference:'外观参考',sharedBackground:'三种策略共用同一背景',referenceDetail:'约束锈斑形态与纹理',viewOriginal:'查看原图',openBackground:'打开声屏障原始背景图',openReference:'打开立柱锈蚀参考图',
       skip:'跳至内容',menu:'打开导航菜单',navVisual:'视觉生成',navText:'文本监督',backHome:'项目主页 ↗',
       heroTitle:'从视觉生成，<br>到<span>可信监督。</span>',heroDescription:'探索铁路巡检数据的构建过程：用更可控的生成策略补充视觉样本，用通用多模态大模型组织文本监督。',startExplore:'探索数据构建',watchFlow:'查看监督流程',heroNote:'声屏障立柱锈蚀 · 三种视觉生成策略',
       mapVisual:'让生成更可控',background:'背景图',prompt:'文本指导',reference:'目标参考',humanReview:'人工复核',mapText:'让视觉成为监督',image:'图像',structuredText:'结构化文本',mapBottom:'面向铁路基础设施异常理解',stripVisual:'视觉数据生成',stripVisualSub:'三种逐步增强的控制策略',stripText:'文本监督构建',stripTextSub:'从图像输入到多任务监督',
@@ -15,6 +16,7 @@
       positive:'含缺陷样本',negative:'无缺陷样本',teacherTitle:'通用 MLLM',teacherSub:'教师模型 · 通用模型示例',teacherNote:'本页回放方法流程；真实图像描述由后续样例提供。',fieldScene:'场景信息',fieldClass:'缺陷类别',fieldEvidence:'可见证据',fieldRisk:'风险说明',reviewEvidence:'描述与图像证据一致',reviewClass:'类别与缺陷定义一致',reviewRisk:'风险表述有依据且保留不确定性',reviewNegative:'正常与含缺陷样本均进行核验',reviewRework:'需要修订 → 更正描述与类别 → 再次复核',exportOne:'已复核记录 → 多任务文本监督',exportTwo:'图像与人工框标注 → 检测数据',exportNote:'训练与评测划分分别维护，保留数据来源。'
     },
     en: {
+      originalScene:'Original scene',appearanceReference:'Appearance guide',sharedBackground:'One shared background for all strategies',referenceDetail:'Guides rust shape and texture',viewOriginal:'View image',openBackground:'Open the original noise-barrier background',openReference:'Open the post-corrosion reference',
       skip:'Skip to content',menu:'Open navigation',navVisual:'Visual Synthesis',navText:'Text Supervision',backHome:'Project Home ↗',
       heroTitle:'From visual synthesis<br>to <span>grounded supervision.</span>',heroDescription:'Explore how railway inspection data is built: control visual generation, review the results, and organize textual supervision with general-purpose multimodal models.',startExplore:'Explore the engine',watchFlow:'See the workflow',heroNote:'Noise-barrier post corrosion · Three synthesis strategies',
       mapVisual:'Control what you generate',background:'Background',prompt:'Prompt',reference:'Reference',humanReview:'Human review',mapText:'Turn vision into supervision',image:'Image',structuredText:'Structured text',mapBottom:'For railway infrastructure anomaly understanding',stripVisual:'Visual data synthesis',stripVisualSub:'Three progressively richer control strategies',stripText:'Textual supervision',stripTextSub:'From image input to task-specific supervision',
@@ -70,7 +72,13 @@
     document.querySelectorAll('[data-strategy]').forEach((tab, index) => { tab.setAttribute('aria-selected', String(index === strategy)); tab.tabIndex = index === strategy ? 0 : -1; });
     $('strategy-panel').setAttribute('aria-labelledby', `strategy-tab-${strategy}`);
     placeholder($('background-slot'), 'background', 'slotBackground', 'BACKGROUND');
-    $('reference-slot').hidden = strategy !== 2;
+    $('reference-card').hidden = strategy !== 2;
+    $('synthesis-inputs').classList.toggle('with-reference', strategy === 2);
+    ['background','reference'].forEach(key=>{
+      const src=assetPath(key)||'#synthesis';
+      $(`${key}-open`).setAttribute('href',src);
+      $(`${key}-view`).setAttribute('href',src);
+    });
     placeholder($('reference-slot'), 'reference', 'slotReference', 'REFERENCE');
     renderGenerationPrompt(s);
     $('constraint-tags').classList.toggle('emphasized', strategy > 0);
@@ -204,6 +212,7 @@
   keyboardTabs($('task-tabs'),index=>{task=index;renderTasks();},C.tasks.length,()=>task);
   renderLanguage();
 })();
+
 
 
 

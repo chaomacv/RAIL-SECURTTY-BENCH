@@ -44,7 +44,7 @@ window.RAILMIND_CONTENT = {
       "asset": "refined",
       "zh": {
         "caption": "背景图 + 多维文本约束 → 生成图像",
-        "prompt": "在上下两排声屏障中各选择一根现有立柱，生成局部表面锈蚀。\n位置与范围：锈蚀沿立柱底部及边缘自然分布，不改变构件轮廓。\n材质与细节：呈现不规则的红褐色锈斑、局部涂层剥落及少量向下延伸的锈迹，避免夸张的块状堆积。\n光照与透视：匹配原图的视角、光照方向、清晰度和金属表面质感。\n背景保持：仅修改所选立柱及紧邻的少量锈迹区域，保留其余立柱、面板、轨道、植被与线缆。",
+        "prompt": "需求：在上下两排声屏障中各选择一根现有立柱，生成局部表面锈蚀。\n位置与范围：锈蚀沿立柱底部及边缘自然分布，不改变构件轮廓。\n材质与细节：呈现不规则的红褐色锈斑、局部涂层剥落及少量向下延伸的锈迹，避免夸张的块状堆积。\n光照与透视：匹配原图的视角、光照方向、清晰度和金属表面质感。\n背景保持：仅修改所选立柱及紧邻的少量锈迹区域，保留其余立柱、面板、轨道、植被与线缆。",
         "tags": [
           "位置与范围",
           "材质与细节",
@@ -58,6 +58,7 @@ window.RAILMIND_CONTENT = {
         "transition": "如果文字仍难以指定真实锈斑的形态与纹理，可以增加什么视觉依据？",
         "next": "加入目标视觉参考",
         "promptLabels": [
+          "需求",
           "位置与范围",
           "材质与细节",
           "光照与透视",
@@ -66,7 +67,7 @@ window.RAILMIND_CONTENT = {
       },
       "en": {
         "caption": "Background + multidimensional constraints → generated image",
-        "prompt": "Select one existing post in each of the upper and lower rows of noise barriers and add localized surface corrosion.\nLocation and extent: distribute rust naturally along the post bases and edges without changing component outlines.\nMaterial and detail: show irregular reddish-brown rust patches, local coating loss and limited downward rust streaks. Avoid exaggerated bulky deposits.\nLighting and perspective: match the original viewpoint, lighting direction, sharpness and metal surface appearance.\nBackground preservation: edit only the selected posts and small adjacent rust-streak regions. Preserve all other posts, panels, tracks, vegetation and wires.",
+        "prompt": "Request: Select one existing post in each of the upper and lower rows of noise barriers and add localized surface corrosion.\nLocation and extent: distribute rust naturally along the post bases and edges without changing component outlines.\nMaterial and detail: show irregular reddish-brown rust patches, local coating loss and limited downward rust streaks. Avoid exaggerated bulky deposits.\nLighting and perspective: match the original viewpoint, lighting direction, sharpness and metal surface appearance.\nBackground preservation: edit only the selected posts and small adjacent rust-streak regions. Preserve all other posts, panels, tracks, vegetation and wires.",
         "tags": [
           "Location & extent",
           "Material & detail",
@@ -80,6 +81,7 @@ window.RAILMIND_CONTENT = {
         "transition": "What visual evidence could help specify realistic rust shapes and textures that remain difficult to describe?",
         "next": "Add a visual reference",
         "promptLabels": [
+          "Request",
           "Location and extent",
           "Material and detail",
           "Lighting and perspective",
@@ -91,7 +93,7 @@ window.RAILMIND_CONTENT = {
       "asset": "guided",
       "zh": {
         "caption": "背景图 + 目标参考 + 文本指导 → 生成图像",
-        "prompt": "在上下两排声屏障中各选择一根现有立柱，生成局部表面锈蚀。\n位置与范围：锈蚀沿立柱底部及边缘自然分布，不改变构件轮廓。\n材质与细节：呈现不规则的红褐色锈斑、局部涂层剥落及少量向下延伸的锈迹，避免夸张的块状堆积。\n光照与透视：匹配原图的视角、光照方向、清晰度和金属表面质感。\n背景保持：仅修改所选立柱及紧邻的少量锈迹区域，保留其余立柱、面板、轨道、植被与线缆。\n\n以背景图为编辑底图，参考目标图中声屏障立柱的锈斑形态、红褐色纹理和涂层剥落细节。",
+        "prompt": "需求：在上下两排声屏障中各选择一根现有立柱，生成局部表面锈蚀。\n位置与范围：锈蚀沿立柱底部及边缘自然分布，不改变构件轮廓。\n材质与细节：呈现不规则的红褐色锈斑、局部涂层剥落及少量向下延伸的锈迹，避免夸张的块状堆积。\n光照与透视：匹配原图的视角、光照方向、清晰度和金属表面质感。\n背景保持：仅修改所选立柱及紧邻的少量锈迹区域，保留其余立柱、面板、轨道、植被与线缆。\n\n以背景图为编辑底图，参考目标图中声屏障立柱的锈斑形态、红褐色纹理和涂层剥落细节。",
         "tags": [
           "锈蚀外观参考",
           "局部细节",
@@ -106,6 +108,7 @@ window.RAILMIND_CONTENT = {
         "next": "进入文本监督流程",
         "promptAddition": "以背景图为编辑底图，参考目标图中声屏障立柱的锈斑形态、红褐色纹理和涂层剥落细节。",
         "promptLabels": [
+          "需求",
           "位置与范围",
           "材质与细节",
           "光照与透视",
@@ -114,7 +117,7 @@ window.RAILMIND_CONTENT = {
       },
       "en": {
         "caption": "Background + target reference + prompt → generated image",
-        "prompt": "Select one existing post in each of the upper and lower rows of noise barriers and add localized surface corrosion.\nLocation and extent: distribute rust naturally along the post bases and edges without changing component outlines.\nMaterial and detail: show irregular reddish-brown rust patches, local coating loss and limited downward rust streaks. Avoid exaggerated bulky deposits.\nLighting and perspective: match the original viewpoint, lighting direction, sharpness and metal surface appearance.\nBackground preservation: edit only the selected posts and small adjacent rust-streak regions. Preserve all other posts, panels, tracks, vegetation and wires.\n\nUse the background image as the editing canvas. Follow the rust patch shapes, reddish-brown texture and coating-loss details on the noise-barrier posts in the target reference.",
+        "prompt": "Request: Select one existing post in each of the upper and lower rows of noise barriers and add localized surface corrosion.\nLocation and extent: distribute rust naturally along the post bases and edges without changing component outlines.\nMaterial and detail: show irregular reddish-brown rust patches, local coating loss and limited downward rust streaks. Avoid exaggerated bulky deposits.\nLighting and perspective: match the original viewpoint, lighting direction, sharpness and metal surface appearance.\nBackground preservation: edit only the selected posts and small adjacent rust-streak regions. Preserve all other posts, panels, tracks, vegetation and wires.\n\nUse the background image as the editing canvas. Follow the rust patch shapes, reddish-brown texture and coating-loss details on the noise-barrier posts in the target reference.",
         "tags": [
           "Corrosion reference",
           "Local detail",
@@ -129,6 +132,7 @@ window.RAILMIND_CONTENT = {
         "next": "Explore textual supervision",
         "promptAddition": "Use the background image as the editing canvas. Follow the rust patch shapes, reddish-brown texture and coating-loss details on the noise-barrier posts in the target reference.",
         "promptLabels": [
+          "Request",
           "Location and extent",
           "Material and detail",
           "Lighting and perspective",
