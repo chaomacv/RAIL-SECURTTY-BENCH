@@ -50,6 +50,21 @@
       element.classList.add('has-image'); element.append(img, badge);
     } else renderEmpty();
   }
+  function renderGenerationPrompt(s) {
+    const root = $('generation-prompt');
+    root.replaceChildren();
+    s.prompt.split('\n').forEach((line,index)=>{
+      if(index) root.appendChild(document.createTextNode('\n'));
+      if(s.promptAddition && line === s.promptAddition) {
+        const strong=document.createElement('strong'); strong.className='prompt-added'; strong.textContent=line; root.appendChild(strong);
+        return;
+      }
+      const label=(s.promptLabels||[]).find(label=>line.startsWith(label+(lang==='zh'?'：':':')));
+      if(label) {
+        const strong=document.createElement('strong'); strong.className='prompt-constraint'; strong.textContent=label+(lang==='zh'?'：':':'); root.append(strong,document.createTextNode(line.slice(strong.textContent.length)));
+      } else root.appendChild(document.createTextNode(line));
+    });
+  }
   function renderStrategy() {
     const s = C.strategies[strategy][lang];
     document.querySelectorAll('[data-strategy]').forEach((tab, index) => { tab.setAttribute('aria-selected', String(index === strategy)); tab.tabIndex = index === strategy ? 0 : -1; });
@@ -57,7 +72,8 @@
     placeholder($('background-slot'), 'background', 'slotBackground', 'BACKGROUND');
     $('reference-slot').hidden = strategy !== 2;
     placeholder($('reference-slot'), 'reference', 'slotReference', 'REFERENCE');
-    $('generation-prompt').textContent = s.prompt;
+    renderGenerationPrompt(s);
+    $('constraint-tags').classList.toggle('emphasized', strategy > 0);
     $('constraint-tags').replaceChildren(...s.tags.map(tag => { const el = document.createElement('span'); el.textContent = tag; return el; }));
     $('strategy-caption').textContent = s.caption;
     $('strategy-description').textContent = s.description;
@@ -83,10 +99,11 @@
   }
   function renderPromptParts() {
     const root = $('step-content');
-    root.innerHTML = `<div class="prompt-assembly"></div><div class="prompt-excerpt" id="prompt-excerpt"></div>`;
+    root.innerHTML = `<div class="prompt-assembly"></div><div class="prompt-excerpt" id="prompt-excerpt"></div><div class="prompt-snippet"><span>${lang==='zh'?'提示词片段 / 示例':'Prompt excerpt / example'}</span><p id="prompt-snippet-text"></p></div>`;
     const tabs = root.querySelector('.prompt-assembly');
     C.promptParts.forEach((part,index) => { const button = document.createElement('button'); button.type = 'button'; button.className = 'prompt-piece'; button.textContent = part[lang].label; button.setAttribute('aria-pressed',String(index===promptPart)); button.addEventListener('click',()=>{promptPart=index;renderPromptParts();}); tabs.appendChild(button); });
     $('prompt-excerpt').textContent = C.promptParts[promptPart][lang].text;
+    $('prompt-snippet-text').textContent = C.promptParts[promptPart][lang].example;
   }
   const exportPanel = $('stage-insight').innerHTML;
   function renderExportSchema() {
@@ -107,6 +124,8 @@
   }
   function renderFlow() {
     renderSteps();
+    $('flow-panel').classList.toggle('prompt-stage',step===1);
+    $('flow-panel').classList.toggle('export-stage',step===5);
     const s = C.steps[step][lang];
     $('flow-panel').setAttribute('aria-labelledby',`step-tab-${step}`);
     $('step-counter').textContent = `STEP ${String(step+1).padStart(2,'0')} / 06`;
@@ -126,7 +145,10 @@
       const r=C.reviewMethods[lang];
       root.innerHTML='<div class="review-methods">'+r.items.map(([label,text])=>'<section><h4>'+escape(label)+'</h4><p>'+escape(text)+'</p></section>').join('')+'</div><h4 class="vector-heading">'+escape(r.label)+'</h4><div class="vector-fields">'+r.fields.map(text=>'<span>'+escape(text)+'</span>').join('')+'</div><p class="workflow-copy vector-route">'+escape(r.route)+'</p><p class="flow-mini-note">'+escape(r.note)+'</p>';
     }
-    else root.innerHTML = `<div class="export-path"><div>${icon('text')}<span>${escape(t('exportOne'))}</span></div><div>${icon('check')}<span>${escape(t('exportTwo'))}</span></div></div><p class="flow-mini-note">${escape(t('exportNote'))}</p>`;
+    else {
+      const e=C.exportDetails[lang];
+      root.innerHTML='<div class="export-path"><div>'+icon('text')+'<span>'+escape(t('exportOne'))+'</span></div><div>'+icon('check')+'<span>'+escape(t('exportTwo'))+'</span></div></div><h4 class="export-task-heading">'+escape(e.title)+'</h4><div class="export-task-grid">'+e.items.map(([label,text])=>'<section><h5>'+escape(label)+'</h5><p>'+escape(text)+'</p></section>').join('')+'</div><section class="export-provenance"><h4>'+escape(e.provenanceTitle)+'</h4><p>'+escape(e.provenance)+'</p></section>';
+    }
     renderStageInsight();
     $('flow-prev').disabled = step === 0; $('flow-next').disabled = step === C.steps.length-1;
     $('play-label').textContent = t(timer ? 'pauseFlow' : 'playFlow'); $('play-icon').textContent = timer ? 'Ⅱ' : '▶'; $('flow-play').setAttribute('aria-pressed',String(Boolean(timer)));
@@ -182,5 +204,6 @@
   keyboardTabs($('task-tabs'),index=>{task=index;renderTasks();},C.tasks.length,()=>task);
   renderLanguage();
 })();
+
 
 

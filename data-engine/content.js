@@ -56,7 +56,13 @@ window.RAILMIND_CONTENT = {
         "fidelity": "锈蚀纹理、涂层边界和流挂锈迹是否自然？是否保留立柱原有形状与金属质感？",
         "compliance": "逐项核对所选立柱、锈蚀范围、材质细节及背景保持，检查是否改动无关区域。",
         "transition": "如果文字仍难以指定真实锈斑的形态与纹理，可以增加什么视觉依据？",
-        "next": "加入目标视觉参考"
+        "next": "加入目标视觉参考",
+        "promptLabels": [
+          "位置与范围",
+          "材质与细节",
+          "光照与透视",
+          "背景保持"
+        ]
       },
       "en": {
         "caption": "Background + multidimensional constraints → generated image",
@@ -72,14 +78,20 @@ window.RAILMIND_CONTENT = {
         "fidelity": "Are rust texture, coating boundaries and downward streaks natural? Are the original post geometry and metal appearance preserved?",
         "compliance": "Check the selected posts, rust extent, material detail and background preservation individually. Look for changes in unrelated regions.",
         "transition": "What visual evidence could help specify realistic rust shapes and textures that remain difficult to describe?",
-        "next": "Add a visual reference"
+        "next": "Add a visual reference",
+        "promptLabels": [
+          "Location and extent",
+          "Material and detail",
+          "Lighting and perspective",
+          "Background preservation"
+        ]
       }
     },
     {
       "asset": "guided",
       "zh": {
         "caption": "背景图 + 目标参考 + 文本指导 → 生成图像",
-        "prompt": "以背景图为编辑底图，参考目标图中声屏障立柱的锈斑形态、红褐色纹理和涂层剥落细节。\n在上排声屏障中选择两根现有立柱，将同类锈蚀特征自然融入其表面与边缘。\n根据背景调整锈斑尺度、分布、光照与清晰度；不要复制参考图的背景或整体结构。\n保留其余立柱、下排声屏障、轨道、植被和线缆，并核验锈蚀外观与参考的一致性。",
+        "prompt": "在上下两排声屏障中各选择一根现有立柱，生成局部表面锈蚀。\n位置与范围：锈蚀沿立柱底部及边缘自然分布，不改变构件轮廓。\n材质与细节：呈现不规则的红褐色锈斑、局部涂层剥落及少量向下延伸的锈迹，避免夸张的块状堆积。\n光照与透视：匹配原图的视角、光照方向、清晰度和金属表面质感。\n背景保持：仅修改所选立柱及紧邻的少量锈迹区域，保留其余立柱、面板、轨道、植被与线缆。\n\n以背景图为编辑底图，参考目标图中声屏障立柱的锈斑形态、红褐色纹理和涂层剥落细节。",
         "tags": [
           "锈蚀外观参考",
           "局部细节",
@@ -91,11 +103,18 @@ window.RAILMIND_CONTENT = {
         "fidelity": "锈色、斑块分布和涂层剥落是否与参考相符？是否引入参考图的无关背景或结构？",
         "compliance": "核验锈蚀外观的参考一致性、指定立柱及背景保持要求，记录需要修订或筛除的结果。",
         "transition": "图像通过复核后，如何转化为可用于训练的文本监督？",
-        "next": "进入文本监督流程"
+        "next": "进入文本监督流程",
+        "promptAddition": "以背景图为编辑底图，参考目标图中声屏障立柱的锈斑形态、红褐色纹理和涂层剥落细节。",
+        "promptLabels": [
+          "位置与范围",
+          "材质与细节",
+          "光照与透视",
+          "背景保持"
+        ]
       },
       "en": {
         "caption": "Background + target reference + prompt → generated image",
-        "prompt": "Use the background image as the editing canvas. Follow the rust patch shapes, reddish-brown texture and coating-loss details on the noise-barrier posts in the target reference.\nSelect two existing posts in the upper row and integrate similar corrosion naturally into their surfaces and edges.\nAdapt rust scale, distribution, lighting and sharpness to the background. Do not copy the reference background or overall structure.\nPreserve all other posts, the lower noise barrier, tracks, vegetation and wires. Inspect the corrosion appearance against the reference.",
+        "prompt": "Select one existing post in each of the upper and lower rows of noise barriers and add localized surface corrosion.\nLocation and extent: distribute rust naturally along the post bases and edges without changing component outlines.\nMaterial and detail: show irregular reddish-brown rust patches, local coating loss and limited downward rust streaks. Avoid exaggerated bulky deposits.\nLighting and perspective: match the original viewpoint, lighting direction, sharpness and metal surface appearance.\nBackground preservation: edit only the selected posts and small adjacent rust-streak regions. Preserve all other posts, panels, tracks, vegetation and wires.\n\nUse the background image as the editing canvas. Follow the rust patch shapes, reddish-brown texture and coating-loss details on the noise-barrier posts in the target reference.",
         "tags": [
           "Corrosion reference",
           "Local detail",
@@ -107,7 +126,14 @@ window.RAILMIND_CONTENT = {
         "fidelity": "Do rust colors, patch distribution and coating loss follow the reference? Check for unwanted reference background or structural changes.",
         "compliance": "Review reference consistency, the specified posts and background preservation. Flag results requiring correction or rejection.",
         "transition": "Once the images pass review, how can they become training-ready textual supervision?",
-        "next": "Explore textual supervision"
+        "next": "Explore textual supervision",
+        "promptAddition": "Use the background image as the editing canvas. Follow the rust patch shapes, reddish-brown texture and coating-loss details on the noise-barrier posts in the target reference.",
+        "promptLabels": [
+          "Location and extent",
+          "Material and detail",
+          "Lighting and perspective",
+          "Background preservation"
+        ]
       }
     }
   ],
@@ -201,51 +227,61 @@ window.RAILMIND_CONTENT = {
     {
       "zh": {
         "label": "专家角色",
-        "text": "专家角色用于明确模型职责与分析视角，使输出聚焦铁路巡检需求。将模型设定为铁路基础设施巡检分析助手，围绕图像中的可见信息开展分析。"
+        "text": "专家角色用于明确模型职责与分析视角，使输出聚焦铁路巡检需求。将模型设定为铁路基础设施巡检分析助手，围绕图像中的可见信息开展分析。",
+        "example": "你是一名铁路基础设施巡检分析助手。请依据图像中的可见信息，描述场景、对象状态与异常迹象。"
       },
       "en": {
         "label": "Expert role",
-        "text": "An expert role defines the model’s responsibilities and perspective, keeping responses focused on railway inspection. Assign the role of a railway infrastructure inspection assistant analyzing visible image evidence."
+        "text": "An expert role defines the model’s responsibilities and perspective, keeping responses focused on railway inspection. Assign the role of a railway infrastructure inspection assistant analyzing visible image evidence.",
+        "example": "You are a railway infrastructure inspection assistant. Describe the scene, object states and anomaly cues using visible image evidence."
       }
     },
     {
       "zh": {
         "label": "领域知识",
-        "text": "领域知识用于统一术语与缺陷分类边界，减少场景理解和类别判断的偏差。提供铁路场景、相关构件及预定义缺陷类别的定义，作为分析依据。"
+        "text": "领域知识用于统一术语与缺陷分类边界，减少场景理解和类别判断的偏差。提供铁路场景、相关构件及预定义缺陷类别的定义，作为分析依据。",
+        "example": "当前场景：声屏障。关注构件：立柱、面板及连接部位。使用领域知识中给定的缺陷类别定义，区分可见状态与风险判断。"
       },
       "en": {
         "label": "Domain knowledge",
-        "text": "Domain knowledge aligns terminology and defect boundaries to reduce errors in scene interpretation and classification. Provide definitions of railway scenes, relevant components and predefined defect categories as the basis for analysis."
+        "text": "Domain knowledge aligns terminology and defect boundaries to reduce errors in scene interpretation and classification. Provide definitions of railway scenes, relevant components and predefined defect categories as the basis for analysis.",
+        "example": "Current scene: noise barrier. Inspect posts, panels and connections. Apply the supplied defect definitions and distinguish visible states from risk judgments."
       }
     },
     {
       "zh": {
         "label": "思维链构建",
-        "text": "思维链构建用于按任务规划分析路径，发挥模型的场景理解与风险分析能力，并引导其形成符合需求、可核查的结论。\n1. 全局到局部解析：描述图像场景，识别其中的物体，并分析各物体的状态。\n2. 安全推理：结合可见缺陷与场景条件，评估可能涉及的安全风险。\n3. 缺陷类别对齐：将识别到的异常与预定义的 13 类缺陷进行匹配和归类。\n4. 严重程度评估：分析潜在危险的严重程度，判断人工维护或干预需求。"
+        "text": "思维链构建用于按任务规划分析路径，发挥模型的场景理解与风险分析能力，并引导其形成符合需求、可核查的结论。\n1. 全局到局部解析：描述图像场景，识别其中的物体，并分析各物体的状态。\n2. 安全推理：结合可见缺陷与场景条件，评估可能涉及的安全风险。\n3. 缺陷类别对齐：将识别到的异常与预定义的 13 类缺陷进行匹配和归类。\n4. 严重程度评估：分析潜在危险的严重程度，判断人工维护或干预需求。",
+        "example": "按“场景 → 对象及状态 → 异常证据 → 类别匹配 → 风险与干预需求”组织可核查的分析摘要。"
       },
       "en": {
         "label": "Chain-of-thought design",
-        "text": "A task-specific reasoning plan guides the model’s scene understanding and risk analysis toward relevant, verifiable conclusions.\n1. Global-to-local parsing: describe the scene, identify objects and characterize their states.\n2. Safety reasoning: assess possible safety risks using visible defects and scene conditions.\n3. Defect category alignment: match and classify identified anomalies against the 13 predefined defect categories.\n4. Severity assessment: assess the severity of potential hazards and the need for human maintenance or intervention."
+        "text": "A task-specific reasoning plan guides the model’s scene understanding and risk analysis toward relevant, verifiable conclusions.\n1. Global-to-local parsing: describe the scene, identify objects and characterize their states.\n2. Safety reasoning: assess possible safety risks using visible defects and scene conditions.\n3. Defect category alignment: match and classify identified anomalies against the 13 predefined defect categories.\n4. Severity assessment: assess the severity of potential hazards and the need for human maintenance or intervention.",
+        "example": "Organize a verifiable summary as scene → objects and states → anomaly evidence → category alignment → risks and intervention needs."
       }
     },
     {
       "zh": {
         "label": "输出格式",
-        "text": "输出格式用于约束回答结构，便于复核、筛选和后续监督任务构建。指定 scene、anomaly_classes、visual_evidence、risk_description 和 review_status 等结构化字段。"
+        "text": "输出格式用于约束回答结构，便于复核、筛选和后续监督任务构建。指定 scene、anomaly_classes、visual_evidence、risk_description 和 review_status 等结构化字段。",
+        "example": "按 scene、anomaly_classes、visual_evidence、risk_description 和 review_status 输出结构化记录，并保持类别、证据与风险说明一致。"
       },
       "en": {
         "label": "Output schema",
-        "text": "An output schema keeps responses structured for review, filtering and supervision tasks. Specify fields such as scene, anomaly_classes, visual_evidence, risk_description and review_status."
+        "text": "An output schema keeps responses structured for review, filtering and supervision tasks. Specify fields such as scene, anomaly_classes, visual_evidence, risk_description and review_status.",
+        "example": "Return structured records with scene, anomaly_classes, visual_evidence, risk_description and review_status. Keep category, evidence and risk statements consistent."
       }
     },
     {
       "zh": {
         "label": "Few-shot",
-        "text": "Few-shot 通过典型案例统一分析逻辑、缺陷分类边界与输出规范，提高结果的准确性、一致性和可控性。提供经过复核的输入与输出示例，统一信息粒度和不确定性表达。"
+        "text": "Few-shot 通过典型案例统一分析逻辑、缺陷分类边界与输出规范，提高结果的准确性、一致性和可控性。提供经过复核的输入与输出示例，统一信息粒度和不确定性表达。",
+        "example": "示例输入：未见明确异常的声屏障图像。\n示例输出：场景为声屏障；异常类别为空；说明“未见明确缺陷迹象”，避免推断无图像依据的风险。"
       },
       "en": {
         "label": "Few-shot",
-        "text": "Few-shot examples align analysis logic, defect boundaries and output conventions to improve accuracy, consistency and control. Provide reviewed input-output examples to align the level of detail and expressions of uncertainty."
+        "text": "Few-shot examples align analysis logic, defect boundaries and output conventions to improve accuracy, consistency and control. Provide reviewed input-output examples to align the level of detail and expressions of uncertainty.",
+        "example": "Example input: a noise-barrier image without clear anomalies.\nExample output: identify the noise-barrier scene, leave anomaly categories empty, and state that no clear defect cues are visible without inferring unsupported risks."
       }
     }
   ],
@@ -670,6 +706,54 @@ window.RAILMIND_CONTENT = {
         "note": "Similarity is a screening signal, not standalone evidence of a defect or risk."
       }
     }
-  ]
+  ],
+  "exportDetails": {
+    "zh": {
+      "title": "将同一记录组织为四类任务",
+      "items": [
+        [
+          "场景识别",
+          "图像 → 场景类别与相关构件"
+        ],
+        [
+          "缺陷判断",
+          "图像 → 缺陷存在性与类别"
+        ],
+        [
+          "证据描述",
+          "图像与类别 → 支持判断的可见线索"
+        ],
+        [
+          "风险说明",
+          "缺陷与证据 → 可能影响及适用条件"
+        ]
+      ],
+      "provenanceTitle": "保留样本与输出的关联",
+      "provenance": "关联图像标识、来源、场景与审查状态，便于追踪文本监督和检测标注；分别维护训练与评测划分。"
+    },
+    "en": {
+      "title": "Organize each record into four tasks",
+      "items": [
+        [
+          "Scene recognition",
+          "Image → Scene category and relevant components"
+        ],
+        [
+          "Defect decision",
+          "Image → Defect presence and category"
+        ],
+        [
+          "Evidence description",
+          "Image and category → Supporting visual cues"
+        ],
+        [
+          "Risk explanation",
+          "Defect and evidence → Possible effects and conditions"
+        ]
+      ],
+      "provenanceTitle": "Link samples to their outputs",
+      "provenance": "Link image IDs, provenance, scenes and review status to trace text supervision and detection annotations. Maintain separate training and evaluation splits."
+    }
+  }
 };
 
